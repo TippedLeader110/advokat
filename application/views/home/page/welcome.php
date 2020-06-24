@@ -1,6 +1,6 @@
-<header class="masthead bg-primary text-white text-center">
+<header class="masthead bg-primary text-white text-center" style="padding-top: 50px;">
     <div class="container d-flex align-items-center flex-column">
-        <h1>LOGO</h1>
+        <img class="masthead-avatar mb-5" src="<?php echo base_url('assets/img/home/adv.png') ?>" alt="" />
         <h1 class="masthead-heading text-uppercase mb-0"> Advocat-Pengacara Ali Akbar Velayafi Siregar, SH</h1>
        	<!-- <p class="masthead-subheading font-weight-light mb-0" style="margin-top: 10px;"> TOMBOL</p> -->
 
