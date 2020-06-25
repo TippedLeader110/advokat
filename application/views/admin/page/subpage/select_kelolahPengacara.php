@@ -41,7 +41,7 @@
         $('#contentModal').addClass('lodtime',function() {
             $('#loading').hide();
             $('#contentModal').removeClass('lodtime');
-            $('.modal-backdrop').remove();
+            
         });   
     }
 
@@ -72,9 +72,10 @@
 			            $('#loading').hide();
 			            $('#contentPage').removeClass('lodtime');
 			        });   
-			  		$('#contentPage').load('<?php echo base_url('Admin/')?>select_statusPengacara',function() {
+			  		$('#contentPage').load('<?php echo base_url('Admin/')?>daftarPengacara',function() {
 			            $('#loading').hide();
 			            $('#contentPage').removeClass('lodtime');
+			            $('.modal-backdrop').remove();
 			        }); 
         		}
         		else{
@@ -115,8 +116,16 @@
 						      timer: 2000,
   							  timerProgressBar: true
 						    }).then((result) => {
-						    	loadTime();
-        						loadPage('daftarPengacara');
+						    	$('#loading').show();
+							    $('#contentPage').addClass('lodtime',function() {
+						            $('#loading').hide();
+						            $('#contentPage').removeClass('lodtime');
+						        });   
+						  		$('#contentPage').load('<?php echo base_url('Admin/')?>daftarPengacara',function() {
+						            $('#loading').hide();
+						            $('#contentPage').removeClass('lodtime');
+						            $('.modal-backdrop').remove();
+						        }); 
 						    });
 						}
 						else{
