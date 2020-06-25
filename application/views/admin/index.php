@@ -14,7 +14,7 @@
 
     <div id="content">
         <?php $this->load->view('template/navAdmin') ?>
-        <div id="loading" style="position: absolute; top: 50%; left: 5%; height: 100%; width: 100%;">
+        <div id="loading" style="z-index: 4;position: absolute; top: 50%; left: 5%; height: 100%; width: 100%;">
             <center><img src='<?php echo base_url('assets/file/load.gif') ?>'/></center>
         </div>
         <div id="contentPage" class="shadow-sm p-3 mb-5 bg-white rounded " >
@@ -35,9 +35,37 @@
 <script type="text/javascript" src="<?php echo base_url('/assets/js/mmouse.js') ?>"></script>
 
 <script type="text/javascript">
-	$('#contentPage').load('<?php echo base_url('Admin/')?>laporanSingkat',function() {
+    function loadTime(){
+        $('#loading').show();
+        $('#contentPage').addClass('lodtime',function() {
+            $('#loading').hide();
+            $('#contentPage').removeClass('lodtime');
+        });   
+    }
+
+    function loadPage(page){
+        loadTime();
+        $('#contentPage').load('<?php echo base_url('Admin/')?>' + page,function() {
             $('#loading').hide();
             $('#contentPage').removeClass('lodtime');
         });
+    }
+
+	loadPage('laporanSingkat');
+
+    $('#kelolahPengacara').click(function(event) {
+        event.preventDefault();
+        loadPage('kelolahPengacara');
+    });
+
+    $('#laporanSingkat').click(function(event) {
+        event.preventDefault();
+        loadPage('laporanSingkat');
+    });
+
+    $('#daftarPengacara').click(function(event) {
+        event.preventDefault();
+        loadPage('daftarPengacara');
+    });
 </script>
 </html>

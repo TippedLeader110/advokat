@@ -12,4 +12,5 @@
 <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" crossorigin="anonymous"></script>
 <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" crossorigin="anonymous"></script>
 <link href='<?php echo base_url("assets/core/styles.css") ?>' rel='stylesheet' />
+<link href='<?php echo base_url("assets/core/main.css") ?>' rel='stylesheet' />
 <script type="text/javascript" src="<?php echo base_url("assets/core/scripts.js") ?>"></script>

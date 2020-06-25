@@ -30,30 +30,45 @@ class Admin_model extends CI_Model {
 		else{
 			return false;
 		}
+	}
 
+	public function getDB($db)
+	{
+		return $this->db->get($db)->result();
+	}
 
-		// $user = $this->db
-		// 	->where('username', $user_real)
-		// 	->get('a_users');
-		// // var_dump($user_real);die;
-		// // var_dump($user->result());die;
-		// $match = password_verify($pwd , $user->row()->password);
-		// $id = $user->row()->id_user;
-		// $nama = $user->row()->nama;
-		// $user = $user->row()->username;
-		// if ($match) {
-		// 		$this->session->set_userdata([
-		// 			'id' =>  $id,
-		// 			'status' => 'login-admin',
-		// 			'name' => $nama
-		// 		]);
-		// 		$this->logLoginAdmin();
-		// 		return 1;
-		// }
-		// else
-		// {
-		// 	return 0;
-		// }
+	public function getDBSearch($db, $kolom, $cari)
+	{
+		$this->db->where($kolom, $cari);
+		return $this->db->get($db)->result();
+	}
+
+	public function dbDelete($db, $kolom, $cari)
+	{
+		$this->db->where($kolom, $cari);
+		if ($this->db->delete($db)) {
+			return TRUE;
+		}
+		else{
+			return FALSE;
+		}
+	}
+
+	public function gantiStatuspengacara($id)
+	{
+		$stat = $this->db->where('id_p', $id)->get('pengacara')->row()->status;
+		if ($stat==1) {
+			$this->db->set('status', 0);
+		}
+		else{
+			$this->db->set('status', 1);	
+		}
+		if ($this->db->where('id_p', $id)->update('pengacara')) {
+			return TRUE;
+		}
+		else{
+			return FALSE;
+		}
 	}
 
 	public function logLoginAdmin($u){
@@ -79,6 +94,16 @@ class Admin_model extends CI_Model {
 		getenv('HTTP_FORWARDED')?:
 		getenv('REMOTE_ADDR');
 		return $ip;
+	}
+
+	public function tambahPengacara($data)
+	{
+		if ($this->db->insert('pengacara', $data)) {
+			return TRUE;
+		}
+		else{
+			return FALSE;
+		}
 	}
 }
 

@@ -23,42 +23,54 @@
                 <div class="control-group">
                     <div class="form-group floating-label-form-group controls mb-0 pb-2">
                         <label>Nama</label>
-                        <input class="form-control" id="name" type="text" placeholder="Nama" required="required" data-validation-required-message="Tolong masukan nama." />
+                        <input class="form-control" name="name" id="name" type="text" placeholder="Nama" required="required" data-validation-required-message="Tolong masukan nama." />
                         <p class="help-block text-danger"></p>
                     </div>
                 </div>
                 <div class="control-group">
                     <div class="form-group floating-label-form-group controls mb-0 pb-2">
                         <label>Alamat</label>
-                        <input class="form-control" id="alamat" type="text" placeholder="Alamat" required="required" data-validation-required-message="Tolong masukan alamat." />
+                        <input class="form-control" name="alamat" id="alamat" type="text" placeholder="Alamat" required="required" data-validation-required-message="Tolong masukan alamat." />
+                        <p class="help-block text-danger"></p>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="form-group floating-label-form-group controls mb-0 pb-2">
+                        <label for="jkjk">Jenis Kelamin</label>
+                        <select class="form-control" name="jk" id="jkjk">
+                            <option selected>Pilih Jenis Kelamin</option>
+                            <option value="1">Jenis Kelamin : Laki Laki</option>
+                            <option value="2">Jenis Kelamin : Perempuan</option>
+                        </select>
+                        <!-- <input class="form-control" name="jk" id="jk" type="text" placeholder="Alamat" required="required" data-validation-required-message="Tolong masukan alamat." /> -->
                         <p class="help-block text-danger"></p>
                     </div>
                 </div>
                 <div class="control-group">
                     <div class="form-group floating-label-form-group controls mb-0 pb-2">
                         <label>Nomor KTP</label>
-                        <input class="form-control" id="ktp" type="tel" placeholder="Nomor KTP" required="required" data-validation-required-message="Tolong masukan NO KTP." />
+                        <input class="form-control" name="ktp" id="ktp" type="tel" placeholder="Nomor KTP" required="required" data-validation-required-message="Tolong masukan NO KTP." />
                         <p class="help-block text-danger"></p>
                     </div>
                 </div>
                 <div class="control-group">
                     <div class="form-group floating-label-form-group controls mb-0 pb-2">
                         <label>Email</label>
-                        <input class="form-control" id="email" type="email" placeholder="Alamat Email" required="required" data-validation-required-message="Tolong masukan email." />
+                        <input class="form-control" name="email" id="email" type="email" placeholder="Alamat Email" required="required" data-validation-required-message="Tolong masukan email." />
                            <p class="help-block text-danger"></p>
                        </div>
                    </div>
                    <div class="control-group">
                        <div class="form-group floating-label-form-group controls mb-0 pb-2">
                            <label>Nomor HP</label>
-                           <input class="form-control" id="phone" type="tel" placeholder="Nomor HP" required="required" data-validation-required-message="Tolong masukan nomor HP." />
+                           <input class="form-control" name="phone" id="phone" type="tel" placeholder="Nomor HP" required="required" data-validation-required-message="Tolong masukan nomor HP." />
                            <p class="help-block text-danger"></p>
                        </div>
                    </div>
                    <div class="control-group">
                        <div class="form-group floating-label-form-group controls mb-0 pb-2">
                            <label>Dekskripsi Aduan</label>
-                           <textarea class="form-control" id="message" rows="5" placeholder="Deksripsi Aduan" required="required" data-validation-required-message="Tolong isi dekskirpsi aduan."></textarea>
+                           <textarea class="form-control" name="message" id="message" rows="5" placeholder="Deksripsi Aduan" required="required" data-validation-required-message="Tolong isi dekskirpsi aduan."></textarea>
                             <p class="help-block text-danger"></p>
                         </div>
                     </div>
@@ -130,7 +142,7 @@
 							console.log(er);
 							Swal.fire({
 						      title : 'Terkirim !',
-						      text : 'Aduan anda dengan id #'+ value +' telah berhasil direkam!!.',
+						      text : 'Aduan anda telah berhasil direkam!!.',
 						      icon : 'success',
 						      timer: 2000,
   							  timerProgressBar: true
@@ -142,8 +154,6 @@
 							console.log(er);
 							Swal.fire('Gagal','Terjadi kesalahan', 'error');
 						}
-
-			    		
 			    	},
 			    	error: function(er){
 			    		Swal.fire('Gagal','Terjadi kesalahan', 'error');

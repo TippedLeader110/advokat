@@ -8,18 +8,15 @@
 		</div>
 	</div>
 	<div class="row" style="margin-top: 0px;">
-		<?php foreach ($reTahap as $key => $Ddash): ?>
-			
-			
-		<?php endforeach ?>
+		
 
 	<div class="col-12 col-md-4">
 		<div class="card text-white bg-info mb-3" style="max-width: 18rem;">
-		    <div class="card-header text-capitalize text-center">Berkas Baru</div>
+		    <div class="card-header text-capitalize text-center">Total Masalah</div>
 		  	<div class="card-body">
 		  		<div>
 		    		<h1 class="card-title text-center">
-						<?php echo $Ddash->berkas_baru ?>
+						
 		    		</h1>
 	    		</div>
 	  		</div>
@@ -27,11 +24,11 @@
 	</div>
 	<div class="col-12 col-md-4">
 		<div class="card text-white bg-info mb-3" style="max-width: 18rem;">
-	  	<div class="card-header text-capitalize text-center">Jumlah Tahap Seleksi</div>
+	  	<div class="card-header text-capitalize text-center">Total Pengacara</div>
 	  		<div class="card-body">
 	  			<div>
 	    			<h1 class="card-title text-center">
-						<?php echo $Ddash->jumlah_tahap ?>
+						
 	    			</h1>
 	    		</div>
 	  		</div>
@@ -39,11 +36,11 @@
 	</div>
 	<div class="col-12 col-md-4">
 		<div class="card text-white bg-info mb-3" style="max-width: 18rem;">
-	  	<div class="card-header text-capitalize text-center">Jumlah Berkas belum di cek</div>
+	  	<div class="card-header text-capitalize text-center">Masalah belum di cek </div>
 	  		<div class="card-body">
 	  			<div>
 	    			<h1 class="card-title text-center">
-						<?php echo $Ddash->jumlah_blmver ?>
+						
 	    			</h1>
 	    		</div>
 	  		</div>
@@ -51,11 +48,11 @@
 	</div>
 	<div class="col-12 col-md-4">
 		<div class="card text-white bg-success mb-3" style="max-width: 18rem;">
-	  	<div class="card-header text-capitalize text-center">Jumlah Tim sudah bayar</div>
+	  	<div class="card-header text-capitalize text-center">Masalah diterima</div>
 	  		<div class="card-body">
 	  			<div>
 	    			<h1 class="card-title text-center">
-						<?php echo $Ddash->jumlah_bayar  ?>
+						
 	    			</h1>
 	    		</div>
 	  		</div>
@@ -63,11 +60,11 @@
 	</div>
 	<div class="col-12 col-md-4">
 		<div class="card text-white bg-success mb-3" style="max-width: 18rem;">
-	  	<div class="card-header text-capitalize text-center">Jumlah Tim lulus berkas</div>
+	  	<div class="card-header text-capitalize text-center">Pengacara yang tersedia</div>
 	  		<div class="card-body">
 	  			<div>
 	    			<h1 class="card-title text-center">
-						<?php echo $Ddash->jumlah_suksesSeleksi ?>
+						
 	    			</h1>
 	    		</div>
 	  		</div>
@@ -75,11 +72,11 @@
 	</div>
 	<div class="col-12 col-md-4">
 		<div class="card text-white bg-success mb-3" style="max-width: 18rem;">
-	  	<div class="card-header text-capitalize text-center">Total Peserta</div>
+	  	<div class="card-header text-capitalize text-center">Masalah selesai</div>
 	  		<div class="card-body">
 	  			<div>
 	    			<h1 class="card-title text-center">
-						<?php echo $Ddash->total_peserta ?>
+						
 	    			</h1>
 	    		</div>
 	  		</div>
@@ -87,11 +84,11 @@
 	</div>
 	<div class="col-12 col-md-4">
 		<div class="card text-white bg-danger mb-3" style="max-width: 18rem;">
-	  	<div class="card-header text-capitalize text-center">Berkas ditolak</div>
+	  	<div class="card-header text-capitalize text-center">Masalah berjalan</div>
 	  		<div class="card-body">
 	  			<div>
 	    			<h1 class="card-title text-center">
-						<?php echo $Ddash->jumlah_tolak ?>
+						
 	    			</h1>
 	    		</div>
 	  		</div>
@@ -100,11 +97,11 @@
 	
 	<div class="col-12 col-md-4">
 		<div class="card text-white bg-danger mb-3" style="max-width: 18rem;">
-	  	<div class="card-header text-capitalize text-center">Tim belum bayar</div>
+	  	<div class="card-header text-capitalize text-center">Masalah berhenti</div>
 	  		<div class="card-body">
 	  			<div>
 	    			<h1 class="card-title text-center">
-						<?php $nilai1 = $Ddash->jumlah_tim-$Ddash->jumlah_bayar; echo $nilai1;  ?>
+						
 	    			</h1>
 	    		</div>
 	  		</div>
@@ -112,11 +109,11 @@
 	</div>
 	<div class="col-12 col-md-4">
 		<div class="card text-white bg-danger mb-3" style="max-width: 18rem;">
-	  	<div class="card-header text-capitalize text-center">Total Tim gugur</div>
+	  	<div class="card-header text-capitalize text-center">Pengacara cuti</div>
 	  		<div class="card-body">
 	  			<div>
 	    			<h1 class="card-title text-center">
-						<?php $nilai = $Ddash->jumlah_tolak+$nilai1; echo $nilai; ?>
+
 	    			</h1>
 	    		</div>
 	  		</div>
