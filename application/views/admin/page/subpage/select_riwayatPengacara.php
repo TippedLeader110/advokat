@@ -34,77 +34,36 @@
 		</div>
 	</div>
 	<div class="row" style="margin-top: 10px;">
-		<div class="col-12 col-md-4">
-			<div class="card text-center" style="margin-bottom: 10px;height: 200px;">
-				<div class="card-body">
-					<h5 class="card-title">Edit Pengacara</h5>
-				    <p class="card-text">Mengganti atribut pengacara.</p>
-				    <a href="#" class="btn btn-warning" id="select_editPengacara">Edit</a>
-				 </div>
-			</div>
-		</div>
-		<div class="col-12 col-md-4">
-			<div class="card text-center" style="margin-bottom: 10px;height: 200px;">
-				<div class="card-body">
-					<h5 class="card-title">Status Pengacara</h5>
-				    <p class="card-text">Mengganti status pengacara.</p>
-				    <?php if ($status==1): ?>
-				    	<a href="#" class="btn btn-danger" id="select_statusPengacara">Nonaktifkan</a>
-				    <?php endif ?>
-				    <?php if ($status!=1): ?>
-				    	<a href="#" class="btn btn-success" id="select_statusPengacara">Aktifkan</a>
-				    <?php endif ?>
-				 </div>
-			</div>
-		</div>
-		<div class="col-12 col-md-4">
-			<div class="card text-center" style="margin-bottom: 10px;height: 200px;">
-				<div class="card-body">
-					<h5 class="card-title">Hapus Pengacara</h5>
-				    <p class="card-text">Menghapus entri pengacara.</p>
-				    <a href="#" class="btn btn-danger text-light" id="select_hapusPengacara">Hapus</a>
-				 </div>
-			</div>
-		</div>
-	</div>
-	<div class="row" style="margin-top: 10px">
-		<div class="col-12">
-			<hr>
-			<h6>Riwayat Masalah</h6>
-			<hr>
-		</div>
-	</div>
-	<div class="row" style="margin-top: 10px;">
 		<div class="table-responsive">
-			<table class="table table-striped table-bordered" id="riwayatTable">
+			<table class="table table-striped table-bordered" id="tablePengacara">
 				<thead>
 					<th>#</th>
-					<th>Masalah</th>
+					<th>Nomor Masalah</th>
+					<th>Pengadu</th>
+					<th>Tanggal</th>
 					<th>Status</th>
-					<!-- <th></th> -->
+					<th></th>
 				</thead>
 				<tbody>
 					<?php $count = 1 ?>
-					<?php foreach ($masalah as $key => $mvalue): ?>
+					<?php foreach ($listTugas as $key => $value): ?>
 						<tr>
 							<td><?php echo $count; $count++; ?></td>
-							<td style="overflow: scroll;max-width: 500px;">
-								<?php echo $mvalue->deskripsi ?>
+							<td><?php echo $value->nama; ?></td>
+							<td><?php echo $value->email; ?></td>
+							<td><?php echo $value->nohp; ?></td>
+							<td>
+								<?php if ($value->status==1): ?>
+									Aktif
+								<?php endif ?>
+								<?php if ($value->status!=1): ?>
+									Tidak Aktif
+								<?php endif ?>
 							</td>
 							<td>
-								<?php if ($mvalue->status==2): ?>
-									Sedang Berjalan
-								<?php endif ?>
-								<?php if ($mvalue->status==3): ?>
-									Selesai
-								<?php endif ?>
-								<?php if (0): ?>
-									Dibatalkan
-								<?php endif ?>
+								<input type="text" id="status<?php echo $value->id_p ?>" hidden value="<?php echo $value->status ?>">
+								<button class="btn btn-primary" id="kelolah" onclick="kelolah(<?php echo $value->id_p ?>, <?php echo $value->status ?>)">Kelolah</button>		
 							</td>
-							<!-- <td>
-								<button class="btn btn-primary" onclick="kelolah(<?php echo $value->id_masalah ?>)">Kelolah</button>
-							</td> -->
 						</tr>
 					<?php endforeach ?>
 				</tbody>
@@ -114,12 +73,6 @@
 </div>
 
 <script type="text/javascript">
-
-	$(document).ready(function () {
-		$('#riwayatTable').DataTable();
-		$('.dataTables_length').addClass('bs-select');
-	});
-
 	function loadTime(){
         $('#loading').show();
         $('#contentModal').addClass('lodtime',function() {

@@ -34,12 +34,12 @@
                     <li id="reportSingkatSide" class="bawah">
                         <a href="#" id="daftarPengacara">Daftar Pengacara</a>
                     </li>
-                    <!-- <li>
+                    <li>
                         <a href="#" id="kelolahPengacara">Kelolah Pengacara</a>
-                    </li> -->
-                    <!-- <li>
-                		<a href="#" id="katPage">Kategori</a>
-                	</li> -->
+                    </li>
+                    <li>
+                		<a href="#" id="riwayatTugas">Riwayat Tugas</a>
+                	</li>
                     <!-- <li>
                         <a href="#" id="reportTeam">Team</a>
                     </li>
@@ -55,11 +55,11 @@
                 </a>
                 <ul class="collapse list-unstyled" id="pagePesertamenu">
                 	<li>
-                		<a href="#" id="kelolahBerkas">Kelolah Berkas</a>
-                	</li>
-                	<li>
-                     <a href="#" id="daftarBerkas">Daftar Berkas</a>
+                     <a href="#" id="daftarBerkasDir">Daftar Berkas</a>
                     </li>
+                	<li>
+                		<a href="#" id="kelolahBerkasDir">Kelolah Berkas</a>
+                	</li>
                 </ul>
             </li>
         </ul>

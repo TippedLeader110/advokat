@@ -67,5 +67,25 @@
         event.preventDefault();
         loadPage('daftarPengacara');
     });
+
+    $('#logAdmin').click(function(event) {
+        event.preventDefault();
+        loadPage('log_admin');
+    });
+    $('#akunPage').click(function(event) {
+        event.preventDefault();
+        loadPage('kelolahAkun');
+    });
+
+    $('#kelolahBerkasADM').click(function(event) {
+        event.preventDefault();
+        loadPage('kelolahBerkasADM');
+    });
+
+    $('#daftarBerkasADM').click(function(event) {
+        event.preventDefault();
+        loadPage('pilihMasalah');
+    });
+
 </script>
 </html>

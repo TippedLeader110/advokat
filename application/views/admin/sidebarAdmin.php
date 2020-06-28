@@ -51,15 +51,15 @@
             <li>
                 <a href="#pagePesertamenu" data-toggle='collapse' aria-expanded="false" class="dropdown-toggle">
                     <i class="far fa-file-alt"></i>
-                    &nbsp;Berkas
+                    &nbsp;Berkas Masalah
                 </a>
                 <ul class="collapse list-unstyled" id="pagePesertamenu">
                 	<li>
-                		<a href="#" id="kelolahBerkas">Kelolah Berkas</a>
-                	</li>
-                	<li>
-                     <a href="#" id="daftarBerkas">Daftar Berkas</a>
+                     <a href="#" id="daftarBerkasADM">Daftar Masalah</a>
                     </li>
+                	<li>
+                		<a href="#" id="kelolahBerkasADM">Kelolah Masalah</a>
+                	</li>
                 </ul>
             </li>
         </ul>

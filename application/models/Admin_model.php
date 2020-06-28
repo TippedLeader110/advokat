@@ -71,6 +71,26 @@ class Admin_model extends CI_Model {
 		}
 	}
 
+	public function pilihPengacara($data, $id)
+	{
+		$this->db->where('id_masalah', $id);
+		if ($this->db->update('masalah', $data)) {
+			return TRUE;
+		}
+		else{
+			return FALSE;
+		}
+	}
+
+	public function tambahAkun($data){
+		if ($this->db->insert('a_users', $data)) {
+			return TRUE;
+		}
+		else{
+			return FALSE;
+		}
+	}
+
 	public function logLoginAdmin($u){
 		$ip = $this->getIP();
 		$user = $u;
@@ -78,8 +98,14 @@ class Admin_model extends CI_Model {
 			->where('username', $user)
 			->get('a_users');
 		$idU = $query->row()->id;
+		if ($this->session->userdata('level')==1) {
+			$ket = 'Admin';
+		}
+		else{
+			$ket = 'Direktur';
+		}
 		$data = array('ip' => $ip,
-			'status' => 'Login Admin',
+			'status' => 'Login '.$ket ,
 			'waktu' => date("Y-m-d H:i:s"),
 			'id_admin' => $idU
 		 );
@@ -99,6 +125,17 @@ class Admin_model extends CI_Model {
 	public function tambahPengacara($data)
 	{
 		if ($this->db->insert('pengacara', $data)) {
+			return TRUE;
+		}
+		else{
+			return FALSE;
+		}
+	}
+
+	public function editPengacara($data, $id_p)
+	{
+		$this->db->where('id_p', $id_p);
+		if ($this->db->update('pengacara', $data)) {
 			return TRUE;
 		}
 		else{

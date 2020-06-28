@@ -73,7 +73,7 @@
 	$('#form').submit(function(event) {
 		event.preventDefault(); 
 		$.ajax({
-			url: '<?php echo base_url('admin/prosestambahPengacara') ?>',
+			url: '<?php echo base_url('admin/proseseditPengacara') ?>',
 			type: 'POST',
 			data:new FormData(this),
             processData:false,
@@ -85,14 +85,15 @@
             },
             success: function(data){
             	if (data==1) {
-            	Swal.fire('Berhasil !!', 'Pengacara berhasil ditambahkan !!', 'success')
+            	Swal.fire('Berhasil !!', 'Perubahan berhasil disimpan !!', 'success')
             	var delay = 1500; 
 				setTimeout(function(){ 
 					$('#loading').show();
 					$('#contentPage').addClass('lodtime');
-					$('#contentPage').load('<?php echo base_url('admin/lomba') ?>', function(){
+					$('#contentPage').load('<?php echo base_url('admin/daftarPengacara') ?>', function(){
 						$('#loading').hide();
 						$('#contentPage').removeClass('lodtime');
+						$('.modal-backdrop').remove();
 					})}, delay);
             	}
             	else
