@@ -4,9 +4,9 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-12 col-md-12">
-				<h4>Kelolah Kasus</h5>
+				<h3>Kelolah Kasus</h3>
 					<button id="back" class="btn btn-outline-warning" style="margin-bottom: 15px">Kembali</button>
-				<h3><?php echo $value->deskripsi ?></h5>
+				<h5><?php echo $value->deskripsi ?></h5>
 				<hr>
 				<b>Informasi Dasar</b>
 				<hr>
@@ -147,9 +147,6 @@
 				<hr>
 				<div class="table-responsive">
 					<div class="table table-borderless">
-						<?php if ($berkas==false): ?>
-							<button id="tambahDokumen" class="btn btn-success"><i class="fas fa-plus"></i>&nbsp;Tambah</button>
-						<?php endif ?>
 						<?php if ($berkas==true): ?>
 								<div class="table-responsive">
 									<table class="table table-borderless">
@@ -169,6 +166,7 @@
 									</table>
 								</div>
 						<?php endif ?>
+						<button id="tambahDokumen" class="btn btn-success"><i class="fas fa-plus"></i>&nbsp;Tambah</button>
 					</div>
 				</div>
 			</div>
