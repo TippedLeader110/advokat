@@ -1,30 +1,90 @@
-<?php foreach ($dataP as $key => $value): ?>
+<?php foreach ($dataMasalah as $key => $value): ?>
 	
 <?php endforeach ?>
 <div class="container-fluid" id="contentModal">
 	<div class="row">
 		<div class="col-12 col-md-12">
 			
-			<div class="card text-left" style="margin-bottom: 10px;height: 240px;">
+			<div class="card text-left" style="margin-bottom: 10px;">
 				<div class="card-body">
-					<h5 class="card-title text-center">Profile Pengacara</h5>
+					<h5 class="card-title text-center">Deskripsi Masalah</h5>
 				    <table>
 						<tr>
-							<td rowspan="4"><img src="<?php echo base_url('public/pengacara/foto/'); echo $value->foto ?>" style="max-width: 100px;"></td><td>&nbsp;&nbsp;&nbsp;Nama : <?php echo $value->nama ?></td>
+							<td>
+								Masalah
+							</td>
+							<td>
+								: &nbsp;
+							</td>
+							<td style="max-width: 400px;overflow: auto;">
+								<?php echo $value->deskripsi ?>
+							</td>
 						</tr>
 						<tr>
-							<td>&nbsp;&nbsp;&nbsp;Email : <?php echo $value->email ?></td>
+							<td>
+								Pemohon
+							</td>
+							<td>
+								: &nbsp;
+							</td>
+							<td>
+								<?php echo $value->nama ?>	
+							</td>
 						</tr>
 						<tr>
-							<td>&nbsp;&nbsp;&nbsp;No HP : <?php echo $value->nohp ?></td>
+							<td>
+								KTP
+							</td>
+							<td>
+								: &nbsp;
+							</td>
+							<td>
+								<?php echo $value->ktp ?>
+							</td>
 						</tr>
 						<tr>
-							<td>&nbsp;&nbsp;&nbsp;Status : 
+							<td>
+								Alamat
+							</td>
+							<td>
+								: &nbsp;
+							</td>
+							<td>
+								<?php echo $value->alamat ?>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Email
+							</td>
+							<td>
+								: &nbsp;
+							</td>
+							<td>
+								<?php echo $value->email ?>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								No.HP
+							</td>
+							<td>
+								: &nbsp;
+							</td>
+							<td>
+								<?php echo $value->nohp ?>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Status	
+							</td>
+							<td>
+								: &nbsp;
+							</td>
+							<td>
 								<?php if ($value->status==1): ?>
-									Aktif
-								<?php endif ?>
-								<?php if ($value->status!=1): ?>
-									Tidak Aktif
+								 Masalah Baru
 								<?php endif ?>
 							</td>
 						</tr>
@@ -34,92 +94,45 @@
 		</div>
 	</div>
 	<div class="row" style="margin-top: 10px;">
-		<div class="col-12 col-md-4">
+		<hr>
+		<div class="col-12 col-md-6">
 			<div class="card text-center" style="margin-bottom: 10px;height: 200px;">
 				<div class="card-body">
-					<h5 class="card-title">Edit Pengacara</h5>
-				    <p class="card-text">Mengganti atribut pengacara.</p>
-				    <a href="#" class="btn btn-warning" id="select_editPengacara">Edit</a>
+					<h5 class="card-title">Pilih Pengacara</h5>
+				    <p class="card-text">Memilih pengacara yang bertanggung jawab.</p>
+				    
+				 </div>
+				 <div class="card-footer">
+				 	<a href="#" class="btn btn-warning" id="modal_pilihPengacara">Pilih</a>
 				 </div>
 			</div>
 		</div>
-		<div class="col-12 col-md-4">
+		<div class="col-12 col-md-6">
 			<div class="card text-center" style="margin-bottom: 10px;height: 200px;">
 				<div class="card-body">
-					<h5 class="card-title">Status Pengacara</h5>
-				    <p class="card-text">Mengganti status pengacara.</p>
-				    <?php if ($status==1): ?>
-				    	<a href="#" class="btn btn-danger" id="select_statusPengacara">Nonaktifkan</a>
-				    <?php endif ?>
-				    <?php if ($status!=1): ?>
-				    	<a href="#" class="btn btn-success" id="select_statusPengacara">Aktifkan</a>
-				    <?php endif ?>
-				 </div>
+					<h5 class="card-title">Status Masalah</h5>
+				    <p class="card-text">Mengganti status Masalah.</p>
+				    
+				</div>
+				<div class="card-footer">
+				    <a href="#" class="btn btn-danger" id="status_masalah">
+				    	<?php if ($value->status==1): ?>
+				    		Tolak Kasus
+				    	<?php endif ?>
+				    	<?php if ($value->status==2): ?>
+				    		Tutup Kasus
+				    	<?php endif ?>
+				    	<?php if ($value->status==0): ?>
+				    		Aktifkan
+				    	<?php endif ?>
+				    </a>
+				</div>
 			</div>
-		</div>
-		<div class="col-12 col-md-4">
-			<div class="card text-center" style="margin-bottom: 10px;height: 200px;">
-				<div class="card-body">
-					<h5 class="card-title">Hapus Pengacara</h5>
-				    <p class="card-text">Menghapus entri pengacara.</p>
-				    <a href="#" class="btn btn-danger text-light" id="select_hapusPengacara">Hapus</a>
-				 </div>
-			</div>
-		</div>
-	</div>
-	<div class="row" style="margin-top: 10px">
-		<div class="col-12">
-			<hr>
-			<h6>Riwayat Kasus</h6>
-			<hr>
-		</div>
-	</div>
-	<div class="row" style="margin-top: 10px;">
-		<div class="table-responsive">
-			<table class="table table-striped table-bordered" id="riwayatTable">
-				<thead>
-					<th>#</th>
-					<th>Kasus</th>
-					<th>Status</th>
-					<!-- <th></th> -->
-				</thead>
-				<tbody>
-					<?php $count = 1 ?>
-					<?php foreach ($masalah as $key => $mvalue): ?>
-						<tr>
-							<td><?php echo $count; $count++; ?></td>
-							<td style="overflow: scroll;max-width: 500px;">
-								<?php echo $mvalue->deskripsi ?>
-							</td>
-							<td>
-								<?php if ($mvalue->status==2): ?>
-									Sedang Berjalan
-								<?php endif ?>
-								<?php if ($mvalue->status==3): ?>
-									Selesai
-								<?php endif ?>
-								<?php if (0): ?>
-									Dibatalkan
-								<?php endif ?>
-							</td>
-							<!-- <td>
-								<button class="btn btn-primary" onclick="kelolah(<?php echo $value->id_masalah ?>)">Kelolah</button>
-							</td> -->
-						</tr>
-					<?php endforeach ?>
-				</tbody>
-			</table>				
 		</div>
 	</div>
 </div>
 
 <script type="text/javascript">
-
-	$(document).ready(function () {
-		$('#riwayatTable').DataTable();
-		$('.dataTables_length').addClass('bs-select');
-	});
-
 	function loadTime(){
         $('#loading').show();
         $('#contentModal').addClass('lodtime',function() {
@@ -137,30 +150,29 @@
         });
     }
 
-	$('#select_editPengacara').click(function(event) {
+	$('#modal_pilihPengacara').click(function(event) {
         event.preventDefault();
-        loadPage('select_editPengacara?id=<?php echo $id ?>');
+        loadPage('modal_pilihPengacara?id=<?php echo $id ?>');
     });
 
-    $('#select_statusPengacara').click(function(event) {
+    $('#modal_statusPengacara').click(function(event) {
         event.preventDefault();
         $.ajax({
-        	url: '<?php echo base_url('admin/select_statusPengacara') ?>',
+        	url: '<?php echo base_url('admin/modal_statusPengacara') ?>',
         	type: 'POST',
         	data: {id: '<?php echo $id ?>'},
         	success: function(event){
         		if (event==1) {
         			Swal.fire('Berhasil', "Status pengacara berhasil diganti !!!", 'success');
-        			$('#modalKelolah').modal('hide');
         			$('#loading').show();
 				    $('#contentPage').addClass('lodtime',function() {
-			            // $('#loading').hide();
-			            // $('#contentPage').removeClass('lodtime');
+			            $('#loading').hide();
+			            $('#contentPage').removeClass('lodtime');
 			        });   
 			  		$('#contentPage').load('<?php echo base_url('Admin/')?>daftarPengacara',function() {
 			            $('#loading').hide();
 			            $('#contentPage').removeClass('lodtime');
-			            
+			            $('#modalKelolah').modal('hide');
 			        }); 
         		}
         		else{
@@ -174,7 +186,7 @@
         
     });
 
-    $('#select_hapusPengacara').click(function(event) {
+    $('#modal_hapusPengacara').click(function(event) {
         event.preventDefault();
         Swal.fire({
 		title: 'Apakah anda ingin menghapus pengacara ini?',
@@ -188,7 +200,7 @@
 		}).then((result) => {
 			if (result.value) {
 			    $.ajax({
-			    	url: '<?php echo base_url('admin/select_hapusPengacara') ?>',
+			    	url: '<?php echo base_url('admin/modal_hapusPengacara') ?>',
 			    	type: 'post',
 			    	data:{id  :  '<?php echo $id ?>'},
 			    	success: function(er){

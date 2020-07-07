@@ -61,37 +61,98 @@ class Admin extends CI_Controller {
 		}
 		else{
 			$data['berkas'] = true;
-			$data['berkas'] = $this->Admin_model->getDBSearch('masalah', 'id_masalah', $id);	
+			$data['berkasArray'] = $this->Admin_model->getDBSearch('berkas', 'id_masalah', $id);	
 		}
 		$this->load->view('admin/page/kelolahKasus', $data);			
 	}
 
-	public function select_tambahDokumen()
+	public function hapusDokumen()
 	{
-		$data["id"] =  $this->input->get('id');
-		$this->load->view('admin/page/subpage/select_editPekerjaan', $data);			
+		$this->loginProtocol();
+		$id = $this->input->post('id');
+		if ($this->Admin_model->dbDelete('berkas','id_berkas',$id)==TRUE) {
+			echo "1";
+		}
+		else{
+			echo "0";
+		}
 	}
 
-	public function select_editPekerjaan()
+	public function modal_tambahDokumen()
 	{
+		$this->loginProtocol();
 		$data["id"] =  $this->input->get('id');
-		$this->load->view('admin/page/subpage/select_editPekerjaan', $data);			
+		$this->load->view('admin/page/subpage/modal_tambahDokumen', $data);			
 	}
 
-	public function select_editTempatLahir()
+	public function tambahDokumen()
 	{
-		$data["id"] =  $this->input->get('id');
-		$this->load->view('admin/page/subpage/select_tempatLahir', $data);			
+		$this->loginProtocol();
+		$namaBerkas = $this->input->post('namaBerkas');
+		$id = $this->input->post('id');
+		// echo $namaBerkas;
+		// $berkas = $this->input->post('berkas');
+		// echo $berkas;
+		$config['upload_path']="./public/kasus/berkas/"; //path folder file upload
+        $config['allowed_types']='*'; //type file yang boleh di upload
+        $config['encrypt_name'] = TRUE; //enkripsi file name upload
+        $this->load->library('upload',$config,'berkasUPLOAD'); //call library upload 
+        $this->berkasUPLOAD->initialize($config);
+
+        if($this->berkasUPLOAD->do_upload("berkas")){ //upload file
+            $data = array('upload_data' => $this->berkasUPLOAD->data()); //ambil file name yang diupload
+            $Nberkas = $data['upload_data']['file_name'];
+
+            $dataKirim = array('id_masalah' => $id, 'nama_berkas' => $namaBerkas, 'file' => $Nberkas);
+			if ($this->Admin_model->tambahBerkas($dataKirim, $id)==TRUE) {
+				echo "1";
+			}
+			else{
+				echo "0";
+			}
+        }
+        else{
+        	echo "0";
+        }
 	}
 
-	public function select_editTanggalLahir()
+	public function statusKasus()
 	{
+		$stat = $this->input->get('stat');
+		$id = $this->input->post('id');
+		$dataKirim = array('status' => $stat);
+		if ($this->Admin_model->editKasus($dataKirim, $id)==TRUE) {
+			echo "1";
+		}
+		else{
+			echo "0";
+		}
+	}
+
+	public function modal_editPekerjaan()
+	{
+		$this->loginProtocol();
 		$data["id"] =  $this->input->get('id');
-		$this->load->view('admin/page/subpage/select_tanggalLahir', $data);			
+		$this->load->view('admin/page/subpage/modal_editPekerjaan', $data);			
+	}
+
+	public function modal_editTempatLahir()
+	{
+		$this->loginProtocol();
+		$data["id"] =  $this->input->get('id');
+		$this->load->view('admin/page/subpage/modal_tempatLahir', $data);			
+	}
+
+	public function modal_editTanggalLahir()
+	{
+		$this->loginProtocol();
+		$data["id"] =  $this->input->get('id');
+		$this->load->view('admin/page/subpage/modal_tanggalLahir', $data);			
 	}
 
 	public function simpanPekerjaan()
 	{
+		$this->loginProtocol();
 		$pekerjaan = $this->input->post('pekerjaan');
 		$id = $this->input->post('id');
 		$dataBaru = array('pekerjaan' => $pekerjaan);
@@ -105,6 +166,7 @@ class Admin extends CI_Controller {
 
 	public function simpanTempatLahir()
 	{
+		$this->loginProtocol();
 		$tempat = $this->input->post('tempat');
 		$id = $this->input->post('id');
 		$dataBaru = array('tempat_lahir' => $tempat);
@@ -118,6 +180,7 @@ class Admin extends CI_Controller {
 
 	public function simpanTanggalLahir()
 	{
+		$this->loginProtocol();
 		$tanggal = $this->input->post('tanggal');
 		$id = $this->input->post('id');
 		$dataBaru = array('tanggal_lahir' => $tanggal);
@@ -147,7 +210,7 @@ class Admin extends CI_Controller {
 		$this->load->view('admin/page/kelolahPengacara');	
 	}
 
-	public function select_kelolahPengacara()
+	public function modal_kelolahPengacara()
 	{
 		$this->loginProtocol();
 		$id = $this->input->get('id');
@@ -156,19 +219,19 @@ class Admin extends CI_Controller {
 		$data['status'] = $status;
 		$data['dataP'] = $this->Admin_model->getDBSearch('a_users','id',$id);
 		$data['masalah'] = $this->Admin_model->getDBSearch('masalah', 'id_p', $id);
-		$this->load->view('admin/page/subpage/select_kelolahPengacara', $data);
+		$this->load->view('admin/page/subpage/modal_kelolahPengacara', $data);
 	}
 
-	public function select_kelolahMasalah()
+	public function modal_kelolahMasalah()
 	{
 		$this->loginProtocol();
 		$id = $this->input->get('id');
 		$data['id'] = $id;
 		$data['dataMasalah'] = $this->Admin_model->getDBSearch('masalah','id_masalah',$id);
-		$this->load->view('admin/page/subpage/select_kelolahMasalah', $data);
+		$this->load->view('admin/page/subpage/modal_kelolahMasalah', $data);
 	}
 
-	public function select_kelolahMasalahBerjalan()
+	public function modal_kelolahMasalahBerjalan()
 	{
 		$this->loginProtocol();
 		$id = $this->input->get('id');
@@ -182,10 +245,10 @@ class Admin extends CI_Controller {
 		else{
 			$data['dataMasalah'] = $this->Admin_model->getMasalahSayaID($id);
 		}
-		$this->load->view('admin/page/subpage/select_kelolahMasalahBerjalan', $data);
+		$this->load->view('admin/page/subpage/modal_kelolahMasalahBerjalan', $data);
 	}
 
-	public function select_hapusPengacara()
+	public function modal_hapusPengacara()
 	{
 		$this->loginProtocol();
 		$id = $this->input->post('id');
@@ -197,7 +260,7 @@ class Admin extends CI_Controller {
 		}
 	}
 
-	public function select_statusPengacara()
+	public function modal_statusPengacara()
 	{
 		$this->loginProtocol();
 		$id = $this->input->post('id');
@@ -209,32 +272,32 @@ class Admin extends CI_Controller {
 		}
 	}
 
-	public function select_editPengacara()
+	public function modal_editPengacara()
 	{
 		$this->loginProtocol();
 		$id = $this->input->get('id');
 		$data['dataPengacara'] = $this->Admin_model->getDBSearch('a_users','id',$id);
-		$this->load->view('admin/page/subpage/select_editPengacara', $data);	
+		$this->load->view('admin/page/subpage/modal_editPengacara', $data);	
 	}
 
-	public function select_pilihPengacara()
+	public function modal_pilihPengacara()
 	{
 		$this->loginProtocol();
 		$id = $this->input->get('id');
 		// $data['dataPengacara'] = $this->Admin_model->getDBSearch('pengacara','id_p',$id);
 		$data['id'] = $id;
 		$data['daftarPengacara'] = $this->Admin_model->getDBSearch('a_users', 'level', 2);
-		$this->load->view('admin/page/subpage/select_pilihPengacara', $data);	
+		$this->load->view('admin/page/subpage/modal_pilihPengacara', $data);	
 	}
 
-	public function select_pilihPengacaraBerjalan()
+	public function modal_pilihPengacaraBerjalan()
 	{
 		$this->loginProtocol();
 		$id = $this->input->get('id');
 		// $data['dataPengacara'] = $this->Admin_model->getDBSearch('pengacara','id_p',$id);
 		$data['id'] = $id;
 		$data['daftarPengacara'] = $this->Admin_model->getDBSearch('a_users', 'level', 2);
-		$this->load->view('admin/page/subpage/select_pilihPengacaraBerjalan', $data);	
+		$this->load->view('admin/page/subpage/modal_pilihPengacaraBerjalan', $data);	
 	}
 
 	public function pilihMasalah()
@@ -253,7 +316,7 @@ class Admin extends CI_Controller {
 	{
 		$data['id'] = $this->input->get('id');
 		// echo $data['id'];
-		$this->load->view('admin/page/subpage/select_pilihTanggal', $data);
+		$this->load->view('admin/page/subpage/modal_pilihTanggal', $data);
 	}
 
 	public function simpanTanggal()
@@ -300,7 +363,7 @@ class Admin extends CI_Controller {
 		$this->load->view('admin/page/daftarPengacara', $data);
 	}
 
-	public function select_statusMasalah(){
+	public function modal_statusMasalah(){
 		$this->loginProtocol();
 		$id = $this->input->post('id');
 		if ($this->Admin_model->gantiStatusKasus($id)==TRUE) {

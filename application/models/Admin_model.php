@@ -127,6 +127,16 @@ class Admin_model extends CI_Model {
 		}
 	}
 
+	public function tambahBerkas($data, $id)
+	{
+		if ($this->db->insert('berkas', $data)) {
+			return TRUE;
+		}
+		else{
+			return FALSE;
+		}
+	}
+
 	public function tambahAkun($data){
 		if ($this->db->insert('a_users', $data)) {
 			return TRUE;

@@ -103,7 +103,7 @@
 								Kasus Terselesaikan
 								<?php endif ?>
 								<?php if ($value->status==4): ?>
-								Kasus Dibatalkan
+								Kasus Ditutup
 								<?php endif ?>
 							</td>
 						</tr>
@@ -151,9 +151,23 @@
 							<button id="tambahDokumen" class="btn btn-success"><i class="fas fa-plus"></i>&nbsp;Tambah</button>
 						<?php endif ?>
 						<?php if ($berkas==true): ?>
-							<?php foreach ($berkas as $key => $Bvalue): ?>
-							
-							<?php endforeach ?>
+								<div class="table-responsive">
+									<table class="table table-borderless">
+										<?php foreach ($berkasArray as $key => $Bvalue): ?>
+											<tr>
+												<td>
+													<?php echo $Bvalue->nama_berkas ?>
+												</td>
+												<td>:</td>
+												<td>
+													<a target="_blank" href="<?php echo base_url('public/kasus/berkas/'); echo $Bvalue->file ?>" style="color: blue">Link Berkas</a>
+													&nbsp;/&nbsp;
+													<a style="color: blue" onclick="delBerkas(<?php echo $Bvalue->id_berkas ?>)">Hapus Berkas</a>
+												</td>
+											</tr>
+										<?php endforeach ?>
+									</table>
+								</div>
 						<?php endif ?>
 					</div>
 				</div>
@@ -162,7 +176,15 @@
 		<div class="row">
 			<div class="col-12">
 				<hr>
-				<button class="btn btn-success">Kasus Selesai</button>&nbsp;<button class="btn btn-danger">Tutup Kasus</button>
+				<?php if ($value->status!=3): ?>
+					<button class="btn btn-success" id="selesai">Kasus Selesai</button>&nbsp;
+				<?php endif ?>
+				<?php if ($value->status!=4): ?>
+					<button class="btn btn-danger" id="tutup">Tutup Kasus</button>&nbsp;
+				<?php endif ?>
+				<?php if ($value->status==4 || $value->status==3 ): ?>
+					<button class="btn btn-primary" id="buka">Buka Kasus</button>
+				<?php endif ?>
 			</div>
 		</div>
 	</div>
@@ -188,6 +210,60 @@
 </div>
 
 <script type="text/javascript">
+	function delBerkas(id)
+	{
+		Swal.fire({
+		title: 'Apakah anda ingin menghapus berkas ini?',
+		text: "Perubahan tidak dapat diundurkan!",
+		icon: 'warning',
+		showCancelButton: true,
+		confirmButtonColor: '#3085d6',
+		cancelButtonColor: '#d33',
+		confirmButtonText: 'Ya, saya yakin!!',
+		cancelButtonText: 'Mungkin tidak'
+		}).then((result) => {
+			if (result.value) {
+			    $.ajax({
+			    	url: '<?php echo base_url('admin/hapusDokumen') ?>',
+			    	type: 'post',
+			    	data:{id  :  id},
+			    	success: function(er){
+			    		if (er==1) {
+							console.log(er);
+							Swal.fire({
+						      title : 'Sukses !',
+						      text : 'Berkas berhasil dihapus!!.',
+						      icon : 'success',
+						      timer: 2000,
+  							  timerProgressBar: true
+						    }).then((result) => {
+						    	$('#loading').show();
+							    $('#contentPage').addClass('lodtime',function() {
+						        });   
+						  		$('#contentPage').load('<?php echo base_url('admin/kelolahKasus?id='); echo $value->id_masalah; ?>',function() {
+						            $('#loading').hide();
+						            $('#contentPage').removeClass('lodtime');
+						        }); 
+						    });
+						}
+						else{
+							console.log(er);
+							if (er==0) {
+								er = "Database ERROR: Check Network Log";
+							}
+							Swal.fire('Gagal','Terjadi kesalahan dengan error : ' + er + ' hubungi administrator untuk info lebih lanjut ', 'error');
+						}
+			    	},
+			    	error: function(er){
+			    		Swal.fire('Gagal','Terjadi kesalahan dengan error : ' + er + ' hubungi administrator untuk info lebih lanjut ', 'error');
+			    	}
+			    });
+			}
+			else{
+			}
+		})
+	}
+
 	$('#back').click(function(event) {
 		$('#contentPage').load('<?php echo base_url('admin/daftarKasus') ?>', function() {
 			$('#loading').hide();
@@ -197,25 +273,187 @@
 
 	$('#tambahDokumen').click(function(event) {
 		event.preventDefault();
-		$('.modal-body').load('<?php echo base_url('admin/select_tambahDokumen?id='); echo $value->id_masalah; ?>');
+		$('.modal-body').load('<?php echo base_url('admin/modal_tambahDokumen?id='); echo $value->id_masalah; ?>');
 		$('#modalTG').modal('show');
 	});	
 
 	$('#tgPekerjaan').click(function(event) {
 		event.preventDefault();
-		$('.modal-body').load('<?php echo base_url('admin/select_editPekerjaan?id='); echo $value->id_masalah; ?>');
+		$('.modal-body').load('<?php echo base_url('admin/modal_editPekerjaan?id='); echo $value->id_masalah; ?>');
 		$('#modalTG').modal('show');
 	});
 
 	$('#tgTmptLahir').click(function(event) {
 		event.preventDefault();
-		$('.modal-body').load('<?php echo base_url('admin/select_editTempatLahir?id='); echo $value->id_masalah; ?>');
+		$('.modal-body').load('<?php echo base_url('admin/modal_editTempatLahir?id='); echo $value->id_masalah; ?>');
 		$('#modalTG').modal('show');
 	});
 
 	$('#tgTglLahir').click(function(event) {
 		event.preventDefault();
-		$('.modal-body').load('<?php echo base_url('admin/select_editTanggalLahir?id='); echo $value->id_masalah; ?>');
+		$('.modal-body').load('<?php echo base_url('admin/modal_editTanggalLahir?id='); echo $value->id_masalah; ?>');
 		$('#modalTG').modal('show');
+	});
+
+	$('#selesai').click(function(event) {
+		event.preventDefault();
+		Swal.fire({
+		title: 'Apakah anda ingin menyelesaikan kasus ini?',
+		text: "Status kasus akan berubah !!",
+		icon: 'warning',
+		showCancelButton: true,
+		confirmButtonColor: '#3085d6',
+		cancelButtonColor: '#d33',
+		confirmButtonText: 'Ya, saya yakin!!',
+		cancelButtonText: 'Mungkin tidak'
+		}).then((result) => {
+			if (result.value) {
+			    $.ajax({
+			    	url: '<?php echo base_url('admin/statusKasus?stat=3') ?>',
+			    	type: 'post',
+			    	data:{id  :  <?php echo $value->id_masalah ?>},
+			    	success: function(er){
+			    		if (er==1) {
+							console.log(er);
+							Swal.fire({
+						      title : 'Sukses !',
+						      text : 'Kasus sudah selesai!!.',
+						      icon : 'success',
+						      timer: 2000,
+  							  timerProgressBar: true
+						    }).then((result) => {
+						    	$('#loading').show();
+							    $('#contentPage').addClass('lodtime',function() {
+						        });   
+						  		$('#contentPage').load('<?php echo base_url('admin/kelolahKasus?id='); echo $value->id_masalah; ?>',function() {
+						            $('#loading').hide();
+						            $('#contentPage').removeClass('lodtime');
+						        }); 
+						    });
+						}
+						else{
+							console.log(er);
+							if (er==0) {
+								er = "Database ERROR: Check Network Log";
+							}
+							Swal.fire('Gagal','Terjadi kesalahan dengan error : ' + er + ' hubungi administrator untuk info lebih lanjut ', 'error');
+						}
+			    	},
+			    	error: function(er){
+			    		Swal.fire('Gagal','Terjadi kesalahan dengan error : ' + er + ' hubungi administrator untuk info lebih lanjut ', 'error');
+			    	}
+			    });
+			}
+			else{
+			}
+		})
+	});
+
+	$('#tutup').click(function(event) {
+		event.preventDefault();
+		Swal.fire({
+		title: 'Apakah anda ingin menutup kasus ini?',
+		text: "Status kasus akan berubah !!",
+		icon: 'warning',
+		showCancelButton: true,
+		confirmButtonColor: '#3085d6',
+		cancelButtonColor: '#d33',
+		confirmButtonText: 'Ya, saya yakin!!',
+		cancelButtonText: 'Mungkin tidak'
+		}).then((result) => {
+			if (result.value) {
+			    $.ajax({
+			    	url: '<?php echo base_url('admin/statusKasus?stat=4') ?>',
+			    	type: 'post',
+			    	data:{id  :  <?php echo $value->id_masalah ?>},
+			    	success: function(er){
+			    		if (er==1) {
+							console.log(er);
+							Swal.fire({
+						      title : 'Sukses !',
+						      text : 'Kasus ditutup!!.',
+						      icon : 'success',
+						      timer: 2000,
+  							  timerProgressBar: true
+						    }).then((result) => {
+						    	$('#loading').show();
+							    $('#contentPage').addClass('lodtime',function() {
+						        });   
+						  		$('#contentPage').load('<?php echo base_url('admin/kelolahKasus?id='); echo $value->id_masalah; ?>',function() {
+						            $('#loading').hide();
+						            $('#contentPage').removeClass('lodtime');
+						        }); 
+						    });
+						}
+						else{
+							console.log(er);
+							if (er==0) {
+								er = "Database ERROR: Check Network Log";
+							}
+							Swal.fire('Gagal','Terjadi kesalahan dengan error : ' + er + ' hubungi administrator untuk info lebih lanjut ', 'error');
+						}
+			    	},
+			    	error: function(er){
+			    		Swal.fire('Gagal','Terjadi kesalahan dengan error : ' + er + ' hubungi administrator untuk info lebih lanjut ', 'error');
+			    	}
+			    });
+			}
+			else{
+			}
+		})
+	});
+
+	$('#buka').click(function(event) {
+		event.preventDefault();
+		Swal.fire({
+		title: 'Apakah anda ingin membuka kembali kasus ini?',
+		text: "Status kasus akan berubah !!",
+		icon: 'warning',
+		showCancelButton: true,
+		confirmButtonColor: '#3085d6',
+		cancelButtonColor: '#d33',
+		confirmButtonText: 'Ya, saya yakin!!',
+		cancelButtonText: 'Mungkin tidak'
+		}).then((result) => {
+			if (result.value) {
+			    $.ajax({
+			    	url: '<?php echo base_url('admin/statusKasus?stat=2') ?>',
+			    	type: 'post',
+			    	data:{id  :  <?php echo $value->id_masalah ?>},
+			    	success: function(er){
+			    		if (er==1) {
+							console.log(er);
+							Swal.fire({
+						      title : 'Sukses !',
+						      text : 'Kasus dibuka kembail!!.',
+						      icon : 'success',
+						      timer: 2000,
+  							  timerProgressBar: true
+						    }).then((result) => {
+						    	$('#loading').show();
+							    $('#contentPage').addClass('lodtime',function() {
+						        });   
+						  		$('#contentPage').load('<?php echo base_url('admin/kelolahKasus?id='); echo $value->id_masalah; ?>',function() {
+						            $('#loading').hide();
+						            $('#contentPage').removeClass('lodtime');
+						        }); 
+						    });
+						}
+						else{
+							console.log(er);
+							if (er==0) {
+								er = "Database ERROR: Check Network Log";
+							}
+							Swal.fire('Gagal','Terjadi kesalahan dengan error : ' + er + ' hubungi administrator untuk info lebih lanjut ', 'error');
+						}
+			    	},
+			    	error: function(er){
+			    		Swal.fire('Gagal','Terjadi kesalahan dengan error : ' + er + ' hubungi administrator untuk info lebih lanjut ', 'error');
+			    	}
+			    });
+			}
+			else{
+			}
+		})
 	});
 </script>

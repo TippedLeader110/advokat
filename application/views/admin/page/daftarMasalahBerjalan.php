@@ -61,12 +61,12 @@
 <script type="text/javascript">
 	$(document).ready(function () {
 		$('#tablePengacara').DataTable();
-		$('.dataTables_length').addClass('bs-select');
+		$('.dataTables_length').addClass('bs-modal');
 	});
 
 	function kelolah(id){
 		// console.log(stat);
-		$('.modal-body').load('<?php echo base_url('admin/select_kelolahMasalah?id=') ?>' + id);
+		$('.modal-body').load('<?php echo base_url('admin/modal_kelolahMasalah?id=') ?>' + id);
 		$('#modalKelolah').modal('show');
 	}
 
@@ -76,7 +76,7 @@
 	// 	var stri = '#status'+id;
 	// 	var stat = $(stri).val();
 	// 	// console.log(stat);
-	// 	$('.modal-body').load('<?php echo base_url('admin/select_kelolahPengacara?id=') ?>' + id + '&status='+stat);
+	// 	$('.modal-body').load('<?php echo base_url('admin/modal_kelolahPengacara?id=') ?>' + id + '&status='+stat);
 	// 	$('#modalKelolah').modal('hide');
 	// });
 

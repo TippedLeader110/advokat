@@ -31,10 +31,10 @@
 		<div class="col-12 col-md-12">
 		<ul class="nav nav-tabs" id="myTab" role="tablist">
 		    <li class="nav-item">
-		    	<a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Akun Admin</a>
+		    	<a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-modaled="true">Akun Admin</a>
 		  	</li>
 		  	<li class="nav-item">
-		    	<a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Akun Pengacara</a>
+		    	<a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-modaled="false">Akun Pengacara</a>
 		  	</li>
 		</ul>
 		<div class="tab-content" id="myTabContent">
@@ -106,9 +106,9 @@
 <script type="text/javascript">
 	$(document).ready(function () {
 		$('#adminTable').DataTable();
-		$('.dataTables_length').addClass('bs-select');
+		$('.dataTables_length').addClass('bs-modal');
 		$('#tablePengacara').DataTable();
-		$('.dataTables_length').addClass('bs-select');
+		$('.dataTables_length').addClass('bs-modal');
 	});
 
 	function loadTime(){

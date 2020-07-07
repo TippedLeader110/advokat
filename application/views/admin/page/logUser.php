@@ -52,6 +52,6 @@
 <script type="text/javascript">
 	$(document).ready(function () {
 		$('#dtBasicExample').DataTable();
-		$('.dataTables_length').addClass('bs-select');
+		$('.dataTables_length').addClass('bs-modal');
 	});
 </script>

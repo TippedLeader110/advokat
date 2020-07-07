@@ -90,15 +90,15 @@
         });
     }
 
-	$('#select_editPengacara').click(function(event) {
+	$('#modal_editPengacara').click(function(event) {
         event.preventDefault();
-        loadPage('select_editPengacara?id=<?php echo $id ?>');
+        loadPage('modal_editPengacara?id=<?php echo $id ?>');
     });
 
-    $('#select_statusPengacara').click(function(event) {
+    $('#modal_statusPengacara').click(function(event) {
         event.preventDefault();
         $.ajax({
-        	url: '<?php echo base_url('admin/select_statusPengacara') ?>',
+        	url: '<?php echo base_url('admin/modal_statusPengacara') ?>',
         	type: 'POST',
         	data: {id: '<?php echo $id ?>'},
         	success: function(event){
@@ -126,7 +126,7 @@
         
     });
 
-    $('#select_hapusPengacara').click(function(event) {
+    $('#modal_hapusPengacara').click(function(event) {
         event.preventDefault();
         Swal.fire({
 		title: 'Apakah anda ingin menghapus pengacara ini?',
@@ -140,7 +140,7 @@
 		}).then((result) => {
 			if (result.value) {
 			    $.ajax({
-			    	url: '<?php echo base_url('admin/select_hapusPengacara') ?>',
+			    	url: '<?php echo base_url('admin/modal_hapusPengacara') ?>',
 			    	type: 'post',
 			    	data:{id  :  '<?php echo $id ?>'},
 			    	success: function(er){

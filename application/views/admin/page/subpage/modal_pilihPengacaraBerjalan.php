@@ -5,12 +5,17 @@
 			<div class="col-12 col-md-12">
 				<div class="row">
 					<div class="col-6 col-md-12">
-						<?php foreach ($dataPengacara as $key => $value): ?>
-						<?php endforeach ?>
 						<div class="form-group">
-							<input type="text" hidden name="id_p" value="<?php echo $value->id ?>">
-							<label class="form-control-label" for="namaP">Nama Pengacara</label>
-							<input type="text" class="form-control" id="namaP" name="nama" value="<?php echo $value->nama ?>">
+							<input type="text" hidden name="id" value="<?php echo $id ?>">
+							<label class="form-control-label" for="namaP">Plih Pengacara</label>
+							<select class="form-control" id="namaP" name="nama">
+									<option value="none">-- Pilih Pengacara --</option>
+								<?php foreach ($daftarPengacara as $key => $dfValue): ?>
+									<option value="<?php echo $dfValue->id ?>">
+										<?php echo $dfValue->nama ?>
+									</option>
+								<?php endforeach ?>
+							</select>
 								<div class="invalid-feedback">Tolong isi nama Pengacara</div>
 						</div>
 						<!-- <div class="form-group">
@@ -19,33 +24,17 @@
 								<div class="invalid-feedback">Tolong isi deskripsi</div>
 						</div> -->
 					</div>
-					<div class="col-6 col-md-6">
+					<!-- <div class="col-6 col-md-6">
 						<div class="form-group">
-							<label class="form-control-label" for="nohp">Nomor HP</label>
-							<input type="number" class="form-control" id="nohp" name="nohp" value="<?php echo $value->nohp ?>">
-								<div class="invalid-feedback">Tolong isi Nomor HP</div>
+							<label class="form-control-label" for="nohp">Tanggal Pertemuan</label>
+							<input type="date" required class="form-control" id="nohp" name="tanggal">
+								<div class="invalid-feedback">Tolong isi Tanggal</div>
 						</div>
-					</div>
-					<div class="col-6 col-md-6">
-						<div class="form-group">
-							<label class="form-control-label" for="emailP">Email</label>
-							<input type="email" class="form-control" id="email" name="email" value="<?php echo $value->email ?>">
-								<div class="invalid-feedback">Tolong isi email</div>
-						</div>
-					</div>
+					</div> -->
 				</div>
 				<div class="row">
-					<div class="col-12 col-md-12">
-						<!-- <button class="btn btn-primary" id="gantiFoto">Ganti Foto</button> -->
-						<div class="custom-file" id="fotoDiv">
-						    <input name="foto" id="logo" type="file" class="custom-file-input" id="validatedCustomFile" required>
-						    <label class="custom-file-label" for="validatedCustomFile">Upload foto pengacara</label>
-						    <div class="invalid-feedback">Tolong input file</div>
-							</div>
-						</div>
-					</div>
 				<div class="col-12 col-md-12" style="margin-top: 20px;padding-left: 0px;margin-left: 0px">
-					<button class="btn btn-outline-primary">Simpan</button>&nbsp;<button class="btn btn-outline-warning" id="return">Kembali</button>
+					<button id="save" disabled class="btn btn-primary">Simpan</button>&nbsp;<button class="btn btn-outline-warning" id="return">Kembali</button>
 				</div>
 			</div>
 		</div>
@@ -55,6 +44,17 @@
 
 
 <script type="text/javascript">
+	$('#namaP').on('click change', function(event) {
+		event.preventDefault();
+		console.log($(this).val());
+		if ($(this).val()=='none') {
+			$('#save').prop('disabled', true);
+		}
+		else{
+			$('#save').prop('disabled', false);	
+		}
+	});
+
 	$('#gantiFoto').click(function(event) {
 		event.preventDefault();
 		$('#fotoDiv').toggle('fast');
@@ -73,7 +73,7 @@
 	$('#form').submit(function(event) {
 		event.preventDefault(); 
 		$.ajax({
-			url: '<?php echo base_url('admin/proseseditPengacara') ?>',
+			url: '<?php echo base_url('admin/prosespilihPengacaraBerjalan') ?>',
 			type: 'POST',
 			data:new FormData(this),
             processData:false,
@@ -85,12 +85,12 @@
             },
             success: function(data){
             	if (data==1) {
-            	Swal.fire('Berhasil !!', 'Perubahan berhasil disimpan !!', 'success')
+            	Swal.fire('Berhasil !!', 'Perubahan berhasil disimpan. Pengacara yang bertanggung jawab berhasil diganti !!', 'success')
             	var delay = 1500; 
 				setTimeout(function(){ 
 					$('#loading').show();
 					$('#contentPage').addClass('lodtime');
-					$('#contentPage').load('<?php echo base_url('admin/daftarPengacara') ?>', function(){
+					$('#contentPage').load('<?php echo base_url('admin/daftarMasalah?tipe=2') ?>', function(){
 						$('#loading').hide();
 						$('#contentPage').removeClass('lodtime');
 						$('#modalKelolah').modal('hide');
@@ -106,7 +106,7 @@
 		event.preventDefault();
 		$('#loading').show();
 		$('#contentModal').addClass('lodtime');
-		$('#contentModal').load('<?php echo base_url('admin/select_kelolahPengacara?id='); echo $value->id; ?>&status=<?php echo $value->status ?>', function(){
+		$('#contentModal').load('<?php echo base_url('admin/modal_kelolahMasalahBerjalan?id='); echo $id; ?>', function(){
 			$('#loading').hide();
 			$('#contentModal').removeClass('lodtime');
 		});

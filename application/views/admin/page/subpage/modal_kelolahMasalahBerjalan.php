@@ -129,7 +129,7 @@
 					    <p class="card-text">Memilih pengacara yang akan bertanggung jawab ke kasus ini</p>
 					 </div>
 					 <div class="card-footer">
-					 	<a href="#" class="btn btn-warning" id="select_pilihPengacara">Kelolah</a>
+					 	<a href="#" class="btn btn-warning" id="modal_pilihPengacara">Kelolah</a>
 					 </div>
 				<?php endif ?>
 				<?php if ($this->session->userdata('level')==2): ?>
@@ -140,7 +140,7 @@
 							    <p class="card-text">Menentukan jadwal jumpa dan mengisi infromasi tambahan</p>
 							</div>
 							<div class="card-footer">
-							 	<button disabled class="btn btn-warning" id="select_pilihPengacara">Kelolah</button>
+							 	<button disabled class="btn btn-warning" id="modal_pilihPengacara">Kelolah</button>
 							</div>
 						</div>
 					<?php endif ?>
@@ -213,9 +213,9 @@
     	loadPageKasusBerjalan('kelolahTanggal?id=<?php echo $value->id_masalah ?>');
     });
 
-	$('#select_pilihPengacara').click(function(event) {
+	$('#modal_pilihPengacara').click(function(event) {
         event.preventDefault();
-        loadPageKasusBerjalan('select_pilihPengacaraBerjalan?id=<?php echo $id ?>');
+        loadPageKasusBerjalan('modal_pilihPengacaraBerjalan?id=<?php echo $id ?>');
     });
 
     $('#status_masalah').click(function(event) {
@@ -233,7 +233,7 @@
 			if (result.value) {
 				var branch = 0;
 			    $.ajax({
-		        	url: '<?php echo base_url('admin/select_statusMasalah') ?>',
+		        	url: '<?php echo base_url('admin/modal_statusMasalah') ?>',
 		        	type: 'POST',
 		        	data: {id: '<?php echo $id ?>'},
 		        	success: function(event){

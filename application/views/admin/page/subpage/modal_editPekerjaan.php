@@ -5,23 +5,11 @@
 			<div class="col-12 col-md-12">
 				<div class="row">
 					<div class="col-12 col-md-12">
-						<!-- <div class="form-group"> -->
-							<input type="text" hidden name="id" value="<?php echo $id ?>">
-							<!-- <label class="form-control-label" for="namaP">Plih Tanggal Jumpa</label>
-							<select class="form-control" id="namaP" name="nama">
-									<option value="none">-- Pilih Pengacara --</option>
-								<?php foreach ($daftarPengacara as $key => $dfValue): ?>
-									<option value="<?php echo $dfValue->id ?>">
-										<?php echo $dfValue->nama ?>
-									</option>
-								<?php endforeach ?>
-							</select>
-								<div class="invalid-feedback">Tolong isi nama Pengacara</div>
-						</div> -->
+						<input type="text" hidden name="id" value="<?php echo $id ?>">
 						<div class="form-group">
-							<label class="form-control-label" for="someinput">Tempat Lahir</label>
-							<input name="tempat" class="form-control" id="someinput"></input>
-								<div class="invalid-feedback">Tolong isi Tempat Lahir</div>
+							<label class="form-control-label" for="someinput">Pekerjaan Client</label>
+							<input type="text" name="pekerjaan" class="form-control" id="someinput">
+								<div class="invalid-feedback">Tolong isi pekerjaan</div>
 						</div>
 					</div>
 					<!-- <div class="col-6 col-md-12">
@@ -66,9 +54,9 @@
 	$('#form').submit(function(event) {
 		event.preventDefault(); 
 		$.ajax({
-			url: '<?php echo base_url('admin/simpanTempatLahir') ?>',
+			url: '<?php echo base_url('admin/simpanPekerjaan') ?>',
 			type: 'POST',
-			data:{id: <?php echo $id ?>, tempat: $('#someinput').val()},
+			data:{id: <?php echo $id ?>, pekerjaan: $('#someinput').val()},
             error: function(data){
             	Swal.fire('Kesalahan!!', 'Gagal menghubungkan ke server !!', 'error')
             },
@@ -93,7 +81,7 @@
 		event.preventDefault();
 		$('#loading').show();
 		$('#contentModal').addClass('lodtime');
-		$('#contentModal').load('<?php echo base_url('admin/select_kelolahMasalahBerjalan?id='); echo $id; ?>', function(){
+		$('#contentModal').load('<?php echo base_url('admin/modal_kelolahMasalahBerjalan?id='); echo $id; ?>', function(){
 			$('#loading').hide();
 			$('#contentModal').removeClass('lodtime');
 		});

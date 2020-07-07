@@ -46,6 +46,6 @@
 <script type="text/javascript">
 	$(document).ready(function () {
 		$('#tablePengacara').DataTable();
-		$('.dataTables_length').addClass('bs-select');
+		$('.dataTables_length').addClass('bs-modal');
 	});
 </script>
