@@ -12,7 +12,7 @@
 			<div class="card text-center" style="width: 18rem;margin-bottom: 10px">
 				<div class="card-body">
 					<h5 class="card-title">Tambah Pengacara</h5>
-				    <p class="card-text">Menambah pengacara baru untuk menyesaikan masalah.</p>
+				    <p class="card-text">Menambah pengacara baru untuk menyesaikan kasus.</p>
 				    <a href="#" class="btn btn-primary" id="tambahPengacara"><i class="fas fa-plus"></i>Tambah</a>
 				 </div>
 			</div>

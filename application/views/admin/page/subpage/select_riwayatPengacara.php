@@ -38,7 +38,7 @@
 			<table class="table table-striped table-bordered" id="tablePengacara">
 				<thead>
 					<th>#</th>
-					<th>Nomor Masalah</th>
+					<th>Nomor Kasus</th>
 					<th>Pengadu</th>
 					<th>Tanggal</th>
 					<th>Status</th>
@@ -61,8 +61,8 @@
 								<?php endif ?>
 							</td>
 							<td>
-								<input type="text" id="status<?php echo $value->id_p ?>" hidden value="<?php echo $value->status ?>">
-								<button class="btn btn-primary" id="kelolah" onclick="kelolah(<?php echo $value->id_p ?>, <?php echo $value->status ?>)">Kelolah</button>		
+								<input type="text" id="status<?php echo $value->id ?>" hidden value="<?php echo $value->status ?>">
+								<button class="btn btn-primary" id="kelolah" onclick="kelolah(<?php echo $value->id ?>, <?php echo $value->status ?>)">Kelolah</button>		
 							</td>
 						</tr>
 					<?php endforeach ?>
@@ -112,7 +112,7 @@
 			  		$('#contentPage').load('<?php echo base_url('Admin/')?>daftarPengacara',function() {
 			            $('#loading').hide();
 			            $('#contentPage').removeClass('lodtime');
-			            $('.modal-backdrop').remove();
+			            $('#modalKelolah').modal('hide');
 			        }); 
         		}
         		else{
@@ -161,7 +161,7 @@
 						  		$('#contentPage').load('<?php echo base_url('Admin/')?>daftarPengacara',function() {
 						            $('#loading').hide();
 						            $('#contentPage').removeClass('lodtime');
-						            $('.modal-backdrop').remove();
+						            $('#modalKelolah').modal('hide');
 						        }); 
 						    });
 						}

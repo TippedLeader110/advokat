@@ -11,18 +11,18 @@
 		<div class="col-12 col-md-6">
 			<div class="card text-center" style="margin-bottom: 10px">
 				<div class="card-body">
-					<h5 class="card-title">Tambah Akun Admin</h5>
-				    <p class="card-text">Menambah akun admin baru untuk mengatur dan memonitor kerja sistem ini.</p>
-				    <a href="#" class="btn btn-success" id="tambahAdm"><i class="fas fa-plus"></i>Tambah</a>
+					<h5 class="card-title">Tambah Akun Admin/Direktur</h5>
+				    <p class="card-text">Menambah akun Admin/Direktur baru untuk mengatur dan memonitor kerja sistem ini.</p>
+				    <a href="#" class="btn btn-success" id="tambahAdm"><i class="fas fa-plus"></i>&nbsp;Tambah</a>
 				 </div>
 			</div>
 		</div>
 		<div class="col-12 col-md-6">
 			<div class="card text-center" style="margin-bottom: 10px">
 				<div class="card-body">
-					<h5 class="card-title">Tambah Akun Direktur</h5>
-				    <p class="card-text">Menambah akun direktur untuk mengelolah berkas dan jadwal masalah yang ada.</p>
-				    <a href="#" class="btn btn-success" id="tambahDir"><i class="fas fa-plus"></i>Tambah</a>
+					<h5 class="card-title">Tambah Akun Pengacara</h5>
+				    <p class="card-text">Untuk menambah akun pengacara dapat dilakukan di halaman kelolah pengacara.</p>
+				    <a href="#" class="btn btn-success" id="redirectKelolahPengacara"><i class="fas fa-plus"></i>&nbsp;Kelolah Pengacara</a>
 				 </div>
 			</div>
 		</div>
@@ -34,7 +34,7 @@
 		    	<a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Akun Admin</a>
 		  	</li>
 		  	<li class="nav-item">
-		    	<a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Akun Direktur</a>
+		    	<a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Akun Pengacara</a>
 		  	</li>
 		</ul>
 		<div class="tab-content" id="myTabContent">
@@ -61,7 +61,7 @@
 									<td>
 										<?php echo $ADvalue->email ?>
 									</td>
-									<td><button class="btn btn-danger" id="hapusAdm" value="<?php echo $value->id ?>">Hapus</button></td>
+									<td><button class="btn btn-danger" id="hapusAdm" value="<?php echo $ADvalue->id ?>">Hapus</button></td>
 								</tr>
 							<?php endforeach ?>
 						</tbody>
@@ -70,7 +70,7 @@
 		  	</div>
 		  	<div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
 		  		<div class="table-responsive-sm">
-					<table id="direkturTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+					<table id="tablePengacara" class="table table-striped table-bordered" cellspacing="0" width="100%">
 						<thead class="bg-custom text-white">
 						<th>#</th>
                         <th>Nama</th>
@@ -79,7 +79,7 @@
 						</thead>
 						<tbody>
 							<?php $count=0; ?>
-							<?php foreach ($direktur as $key => $DIRvalue): ?>
+							<?php foreach ($pengacara as $key => $DIRvalue): ?>
 								<?php $count++; ?>
 								<tr>
 									<td>
@@ -91,7 +91,7 @@
 									<td>
 										<?php echo $DIRvalue->email ?>
 									</td>
-									<td><button class="btn btn-danger" value="<?php echo $DIRvalue->id ?>" id="hapusDir">Hapus</button></td>
+									<td><button class="btn btn-warning" value="<?php echo $DIRvalue->id ?>" id="gantiPass">Ganti Password</button></td>
 								</tr>
 							<?php endforeach ?>
 						</tbody>
@@ -107,7 +107,7 @@
 	$(document).ready(function () {
 		$('#adminTable').DataTable();
 		$('.dataTables_length').addClass('bs-select');
-		$('#direkturTable').DataTable();
+		$('#tablePengacara').DataTable();
 		$('.dataTables_length').addClass('bs-select');
 	});
 
@@ -127,9 +127,9 @@
         });
     }
 
-	$('#tambahDir').click(function(event) {
+	$('#redirectKelolahPengacara').click(function(event) {
         event.preventDefault();
-        loadPage('tambahDirektur');
+        loadPage('kelolahPengacara');
     });
 
     $('#tambahAdm').click(function(event) {

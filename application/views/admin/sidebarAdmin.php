@@ -44,22 +44,19 @@
                         <a href="#" id="reportTeam">Team</a>
                     </li>
                     <li>
-                        <a href="#" id="reportBerkas">Seminar</a>
+                        <a href="#" id="reportKasus">Seminar</a>
                     </li> -->
                 </ul>
             </li>
             <li>
                 <a href="#pagePesertamenu" data-toggle='collapse' aria-expanded="false" class="dropdown-toggle">
                     <i class="far fa-file-alt"></i>
-                    &nbsp;Berkas Masalah
+                    &nbsp;Kasus
                 </a>
                 <ul class="collapse list-unstyled" id="pagePesertamenu">
                 	<li>
-                     <a href="#" id="daftarBerkasADM">Daftar Masalah</a>
+                     <a href="#" id="daftarKasusADM">Daftar Kasus</a>
                     </li>
-                	<li>
-                		<a href="#" id="kelolahBerkasADM">Kelolah Masalah</a>
-                	</li>
                 </ul>
             </li>
         </ul>

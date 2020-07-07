@@ -70,7 +70,7 @@
 	<div class="row" style="margin-top: 10px">
 		<div class="col-12">
 			<hr>
-			<h6>Riwayat Masalah</h6>
+			<h6>Riwayat Kasus</h6>
 			<hr>
 		</div>
 	</div>
@@ -79,7 +79,7 @@
 			<table class="table table-striped table-bordered" id="riwayatTable">
 				<thead>
 					<th>#</th>
-					<th>Masalah</th>
+					<th>Kasus</th>
 					<th>Status</th>
 					<!-- <th></th> -->
 				</thead>
@@ -151,15 +151,16 @@
         	success: function(event){
         		if (event==1) {
         			Swal.fire('Berhasil', "Status pengacara berhasil diganti !!!", 'success');
+        			$('#modalKelolah').modal('hide');
         			$('#loading').show();
 				    $('#contentPage').addClass('lodtime',function() {
-			            $('#loading').hide();
-			            $('#contentPage').removeClass('lodtime');
+			            // $('#loading').hide();
+			            // $('#contentPage').removeClass('lodtime');
 			        });   
 			  		$('#contentPage').load('<?php echo base_url('Admin/')?>daftarPengacara',function() {
 			            $('#loading').hide();
 			            $('#contentPage').removeClass('lodtime');
-			            $('.modal-backdrop').remove();
+			            
 			        }); 
         		}
         		else{
@@ -208,7 +209,7 @@
 						  		$('#contentPage').load('<?php echo base_url('Admin/')?>daftarPengacara',function() {
 						            $('#loading').hide();
 						            $('#contentPage').removeClass('lodtime');
-						            $('.modal-backdrop').remove();
+						            $('#modalKelolah').modal('hide');
 						        }); 
 						    });
 						}

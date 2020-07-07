@@ -10,6 +10,22 @@
 		<div class="row">
 			<div class="col-12 col-md-12">
 				<div class="row">
+					<div class="col-6 col-md-6">
+						<div class="form-group">
+							<label class="form-control-label" for="nohp">Username</label>
+							<input type="text" class="form-control" id="username" name="username">
+								<div class="invalid-feedback">Tolong isi Username</div>
+						</div>
+					</div>
+					<div class="col-6 col-md-6">
+						<div class="form-group">
+							<label class="form-control-label" for="emailP">Password</label>
+							<input type="password" class="form-control" id="password" name="password">
+								<div class="invalid-feedback">Tolong isi Password</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
 					<div class="col-6 col-md-12">
 						<div class="form-group">
 							<input type="text" hidden name="id" value="<?php echo $this->session->userdata('panitia-id'); ?>">

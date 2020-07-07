@@ -54,16 +54,36 @@ class Admin_model extends CI_Model {
 		}
 	}
 
+	public function getMasalahSayaID($id)
+	{
+		$this->db->where('id_p', $this->session->userdata('id_u'));
+		$this->db->where('id_masalah', $id);
+		return $this->db->get('masalah')->result();
+	}
+
+	public function getMasalah34($tipe)
+	{
+		if ($tipe==1) {
+			$this->db->where("(status=3 or status=4)");
+		}
+		else{
+			$this->db->where('id_p', $this->session->userdata('id_u'));
+			$this->db->where('tanggal_jumpa IS NOT NULL', null, false);
+			$this->db->where("(status=3 or status=4)");
+		}
+		return $this->db->get('masalah')->result();
+	}
+
 	public function gantiStatuspengacara($id)
 	{
-		$stat = $this->db->where('id_p', $id)->get('pengacara')->row()->status;
+		$stat = $this->db->where('id', $id)->get('a_users')->row()->status;
 		if ($stat==1) {
 			$this->db->set('status', 0);
 		}
 		else{
 			$this->db->set('status', 1);	
 		}
-		if ($this->db->where('id_p', $id)->update('pengacara')) {
+		if ($this->db->where('id', $id)->update('a_users')) {
 			return TRUE;
 		}
 		else{
@@ -71,7 +91,32 @@ class Admin_model extends CI_Model {
 		}
 	}
 
-	public function pilihPengacara($data, $id)
+
+	public function gantiStatusKasus($id)
+	{
+		$this->db->where('id_masalah', $id);
+		$row = $this->db->get('masalah')->row();
+		if ($row->status==1) {
+			$this->db->set('status', 0);
+		}
+		elseif ($row->status==2) {
+			$this->db->set('status', 4);
+		}
+		elseif ($row->status==4) {
+			$this->db->set('status', 2);
+		}
+		else{
+			$this->db->set('status', 1);	
+		}
+		if ($this->db->update('masalah')) {
+			return TRUE;
+		}
+		else{
+			return FALSE;
+		}
+	}
+
+	public function editKasus($data, $id)
 	{
 		$this->db->where('id_masalah', $id);
 		if ($this->db->update('masalah', $data)) {
@@ -124,7 +169,7 @@ class Admin_model extends CI_Model {
 
 	public function tambahPengacara($data)
 	{
-		if ($this->db->insert('pengacara', $data)) {
+		if ($this->db->insert('a_users', $data)) {
 			return TRUE;
 		}
 		else{
@@ -134,8 +179,8 @@ class Admin_model extends CI_Model {
 
 	public function editPengacara($data, $id_p)
 	{
-		$this->db->where('id_p', $id_p);
-		if ($this->db->update('pengacara', $data)) {
+		$this->db->where('id', $id_p);
+		if ($this->db->update('a_users', $data)) {
 			return TRUE;
 		}
 		else{

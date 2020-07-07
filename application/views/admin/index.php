@@ -14,7 +14,7 @@
 
     <div id="content">
         <?php $this->load->view('template/navAdmin') ?>
-        <div id="loading" style="z-index: 4;position: absolute; top: 50%; left: 5%; height: 100%; width: 100%;">
+        <div id="loading" style="display: none;z-index: 4;position: absolute; top: 50%; left: 5%; height: 100%; width: 100%;">
             <center><img src='<?php echo base_url('assets/file/load.gif') ?>'/></center>
         </div>
         <div id="contentPage" class="shadow-sm p-3 mb-5 bg-white rounded " >
@@ -35,57 +35,59 @@
 <script type="text/javascript" src="<?php echo base_url('/assets/js/mmouse.js') ?>"></script>
 
 <script type="text/javascript">
-    function loadTime(){
+    function loadTimeIndex(){
         $('#loading').show();
-        $('#contentPage').addClass('lodtime',function() {
-            $('#loading').hide();
-            $('#contentPage').removeClass('lodtime');
-        });   
+        $('#contentPage').addClass('lodtime',function() {});   
     }
 
-    function loadPage(page){
-        loadTime();
+    function LoadPageIndex(page){
+        loadTimeIndex();
         $('#contentPage').load('<?php echo base_url('Admin/')?>' + page,function() {
             $('#loading').hide();
             $('#contentPage').removeClass('lodtime');
         });
     }
 
-	loadPage('laporanSingkat');
+	LoadPageIndex('laporanSingkat');
 
     $('#kelolahPengacara').click(function(event) {
         event.preventDefault();
-        loadPage('kelolahPengacara');
+        LoadPageIndex('kelolahPengacara');
     });
 
     $('#laporanSingkat').click(function(event) {
         event.preventDefault();
-        loadPage('laporanSingkat');
+        LoadPageIndex('laporanSingkat');
     });
 
     $('#daftarPengacara').click(function(event) {
         event.preventDefault();
-        loadPage('daftarPengacara');
+        LoadPageIndex('daftarPengacara');
     });
 
     $('#logAdmin').click(function(event) {
         event.preventDefault();
-        loadPage('log_admin');
+        LoadPageIndex('log_admin');
     });
     $('#akunPage').click(function(event) {
         event.preventDefault();
-        loadPage('kelolahAkun');
+        LoadPageIndex('kelolahAkun');
     });
 
-    $('#kelolahBerkasADM').click(function(event) {
+    $('#kelolahKasusADM').click(function(event) {
         event.preventDefault();
-        loadPage('kelolahBerkasADM');
+        LoadPageIndex('kelolahKasusADM');
     });
 
-    $('#daftarBerkasADM').click(function(event) {
+    $('#daftarKasusADM').click(function(event) {
         event.preventDefault();
-        loadPage('pilihMasalah');
+        LoadPageIndex('pilihMasalah');
     });
 
+    $('#daftarKasusSaya').click(function(event) {
+        event.preventDefault();
+        LoadPageIndex('pilihMasalahSaya');
+    });
+       
 </script>
 </html>

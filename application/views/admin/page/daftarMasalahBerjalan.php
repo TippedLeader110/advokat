@@ -25,37 +25,10 @@
 								<td><?php echo $count; $count++; ?></td>
 								<td style="overflow: scroll;max-width: 500px;">
 									<?php echo $value->deskripsi ?>
-									<?php if ($value->status==1): ?>
-										[<b>Belum Diterima</b>]
-									<?php endif ?>
-									<?php if ($value->status==2): ?>
-										<?php if ($this->session->userdata('level')==2): ?>
-											<?php if ($value->tanggal_jumpa==''): ?>
-												[<b>Kasus Baru</b>]
-											<?php endif ?>
-										<?php endif ?>
-										<?php if ($this->session->userdata('level')==1): ?>
-											[<b>Kasus Diproses</b>]
-										<?php endif ?>
-									<?php endif ?>
-									<?php if ($value->status==3): ?>
-										[<b>Kasus Selesai</b>]
-									<?php endif ?>
-									<?php if ($value->status==4): ?>
-										[<b>Kasus Dibatalkan</b>]
-									<?php endif ?>
 								</td>
 								<td><?php echo $value->nama; ?> (<?php echo $value->ktp; ?>)</td>
 								<td>
-									<?php if ($tipe==1): ?>
-										<button class="btn btn-primary" onclick="kelolah(<?php echo $value->id_masalah ?>)">Kelolah</button>
-									<?php endif ?>
-									<?php if ($tipe==2 || $tipe==4 || $tipe==3): ?>
-										<button class="btn btn-primary" onclick="kelolahBerjalan(<?php echo $value->id_masalah ?>)">Kelolah</button>
-									<?php endif ?>
-									<?php if ($tipe==22 || $tipe==44 || $tipe==33): ?>
-										<button class="btn btn-primary" onclick="kelolahBerjalanSaya(<?php echo $value->id_masalah ?>)">Kelolah</button>
-									<?php endif ?>
+									<button class="btn btn-primary" onclick="kelolah(<?php echo $value->id_masalah ?>)">Kelolah</button>
 								</td>
 							</tr>
 						<?php endforeach ?>
@@ -70,7 +43,7 @@
   	<div class="modal-dialog modal-lg" role="document">
     	<div class="modal-content">
       		<div class="modal-header">
-        		<h4 class="modal-title">Kelolah Kasus</h4>
+        		<h4 class="modal-title">Kelolah Masalah</h4>
         		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
           			<span aria-hidden="true">&times;</span>
         		</button>
@@ -97,18 +70,6 @@
 		$('#modalKelolah').modal('show');
 	}
 
-	function kelolahBerjalan(id){
-		// console.log(stat);
-		$('.modal-body').load('<?php echo base_url('admin/select_kelolahMasalahBerjalan?id=') ?>' + id);
-		$('#modalKelolah').modal('show');
-	}
-
-	function kelolahBerjalanSaya(id){
-		// console.log(stat);
-		$('.modal-body').load('<?php echo base_url('admin/select_kelolahMasalahBerjalan?id=') ?>' + id);
-		$('#modalKelolah').modal('show');
-	}
-
 	// $('#kelolah').click(function(event) {
 	// 	event.preventDefault();
 	// 	var id = $(this).val();
@@ -123,14 +84,7 @@
 		event.preventDefault();
 		$('#loading').show();
 		$('#contentPage').addClass('lodtime');
-		$('#contentPage').load('<?php
-		 								if ($this->session->userdata('level')==2) {
-		 									echo base_url('admin/pilihMasalahSaya');
-		 								}
-		 								else{
-		 									echo base_url('admin/pilihMasalah');
-		 								}
-		 						?>', function(){
+		$('#contentPage').load('<?php echo base_url('admin/pilihMasalah') ?>', function(){
 			$('#loading').hide();
 			$('#contentPage').removeClass('lodtime');
 		});

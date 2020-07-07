@@ -36,8 +36,8 @@
 									<?php endif ?>
 								</td>
 								<td>
-									<input type="text" id="status<?php echo $value->id_p ?>" hidden value="<?php echo $value->status ?>">
-									<button class="btn btn-success" value="<?php echo $value->id_p ?>" id="kelolah">Riwayat</button>		
+									<input type="text" id="status<?php echo $value->id ?>" hidden value="<?php echo $value->status ?>">
+									<button class="btn btn-success" value="<?php echo $value->id ?>" id="kelolah">Riwayat</button>		
 								</td>
 							</tr>
 						<?php endforeach ?>
@@ -76,7 +76,7 @@
 	function kelolah(id,status){
 		// console.log(stat);
 		$('.modal-body').load('<?php echo base_url('admin/select_kelolahPengacara?id=') ?>' + id + '&status='+status);
-		$('#modalKelolah').modal('toggle');
+		$('#modalKelolah').modal('hide');
 	}
 
 	$('#kelolah').click(function(event) {
@@ -84,7 +84,7 @@
 		var id = $(this).val();
 		// console.log(stat);
 		$('.modal-body').load('<?php echo base_url('admin/select_riwayatTugas?id=') ?>' + id);
-		$('#modalKelolah').modal('toggle');
+		$('#modalKelolah').modal('hide');
 	});
 
 </script>

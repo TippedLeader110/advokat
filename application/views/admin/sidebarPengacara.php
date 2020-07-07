@@ -1,6 +1,6 @@
 <div class="sidebar-header">
             <h3><center><img width="100px" src="<?=base_url()?>assets/images/logo.png" alt=""><br>
-            	<h4>Dashboard Direktur</h4>
+            	<h4>Dashboard Pengacara</h4>
             </center></h3>
             <!-- <strong>
             	<img width="40px" src="<?=base_url()?>assets/images/logo.png" alt="ITFest 4.0">
@@ -28,37 +28,31 @@
             <li>
                 <a href="#postSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                     <i class="fas fa-user"></i>
-                    &nbsp;Pengacara
+                    &nbsp;Info Saya
                 </a>
                 <ul class="collapse list-unstyled" id="postSubmenu">
-                    <li id="reportSingkatSide" class="bawah">
-                        <a href="#" id="daftarPengacara">Daftar Pengacara</a>
-                    </li>
                     <li>
-                        <a href="#" id="kelolahPengacara">Kelolah Pengacara</a>
-                    </li>
-                    <li>
-                		<a href="#" id="riwayatTugas">Riwayat Tugas</a>
+                		<a href="#" id="riwayatTugas">Riwayat Kasus</a>
                 	</li>
                     <!-- <li>
                         <a href="#" id="reportTeam">Team</a>
                     </li>
                     <li>
-                        <a href="#" id="reportBerkas">Seminar</a>
+                        <a href="#" id="reportKasus">Seminar</a>
                     </li> -->
                 </ul>
             </li>
             <li>
                 <a href="#pagePesertamenu" data-toggle='collapse' aria-expanded="false" class="dropdown-toggle">
                     <i class="far fa-file-alt"></i>
-                    &nbsp;Berkas
+                    &nbsp;Kasus
                 </a>
                 <ul class="collapse list-unstyled" id="pagePesertamenu">
                 	<li>
-                     <a href="#" id="daftarBerkasDir">Daftar Berkas</a>
+                     <a href="#" id="daftarKasusSaya">Kasus Saya</a>
                     </li>
                 	<li>
-                		<a href="#" id="kelolahBerkasDir">Kelolah Berkas</a>
+                		<a href="#" id="kelolahKasusPeng">Kelolah Kasus</a>
                 	</li>
                 </ul>
             </li>

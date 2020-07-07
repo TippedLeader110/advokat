@@ -36,8 +36,8 @@
 									<?php endif ?>
 								</td>
 								<td>
-									<input type="text" id="status<?php echo $value->id_p ?>" hidden value="<?php echo $value->status ?>">
-									<button class="btn btn-primary" id="kelolah" onclick="kelolah(<?php echo $value->id_p ?>, <?php echo $value->status ?>)">Kelolah</button>		
+									<input type="text" id="status<?php echo $value->id ?>" hidden value="<?php echo $value->status ?>">
+									<button class="btn btn-primary" id="kelolah" onclick="kelolah(<?php echo $value->id ?>, <?php echo $value->status ?>)">Kelolah</button>		
 								</td>
 							</tr>
 						<?php endforeach ?>
@@ -76,7 +76,7 @@
 	function kelolah(id,status){
 		// console.log(stat);
 		$('.modal-body').load('<?php echo base_url('admin/select_kelolahPengacara?id=') ?>' + id + '&status='+status);
-		$('#modalKelolah').modal('toggle');
+		$('#modalKelolah').modal('show');
 	}
 
 	// $('#kelolah').click(function(event) {
@@ -86,7 +86,7 @@
 	// 	var stat = $(stri).val();
 	// 	// console.log(stat);
 	// 	$('.modal-body').load('<?php echo base_url('admin/select_kelolahPengacara?id=') ?>' + id + '&status='+stat);
-	// 	$('#modalKelolah').modal('toggle');
+	// 	$('#modalKelolah').modal('hide');
 	// });
 
 </script>

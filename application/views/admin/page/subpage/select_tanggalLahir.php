@@ -4,10 +4,10 @@
 		<div class="row">
 			<div class="col-12 col-md-12">
 				<div class="row">
-					<div class="col-6 col-md-12">
-						<div class="form-group">
+					<!-- <div class="col-6 col-md-12"> -->
+						<!-- <div class="form-group"> -->
 							<input type="text" hidden name="id" value="<?php echo $id ?>">
-							<label class="form-control-label" for="namaP">Plih Pengacara</label>
+							<!-- <label class="form-control-label" for="namaP">Plih Tanggal Jumpa</label>
 							<select class="form-control" id="namaP" name="nama">
 									<option value="none">-- Pilih Pengacara --</option>
 								<?php foreach ($daftarPengacara as $key => $dfValue): ?>
@@ -17,24 +17,27 @@
 								<?php endforeach ?>
 							</select>
 								<div class="invalid-feedback">Tolong isi nama Pengacara</div>
-						</div>
+						</div> -->
 						<!-- <div class="form-group">
 							<label class="form-control-label" for="deskripsiSeleksi">Deskripsi Pengacara</label>
 							<textarea name="deskripsi" class="form-control" id="deskripsiSeleksi"></textarea>
 								<div class="invalid-feedback">Tolong isi deskripsi</div>
 						</div> -->
-					</div>
-					<!-- <div class="col-6 col-md-6">
+					<!-- </div> -->
+					<div class="col-6 col-md-12">
 						<div class="form-group">
-							<label class="form-control-label" for="nohp">Tanggal Pertemuan</label>
-							<input type="date" required class="form-control" id="nohp" name="tanggal">
+							<label class="form-control-label" for="nohp">Tanggal Lahir</label>
+							<input type="date" required class="form-control" id="tanggal" name="tanggal">
 								<div class="invalid-feedback">Tolong isi Tanggal</div>
 						</div>
-					</div> -->
+					</div>
 				</div>
 				<div class="row">
-				<div class="col-12 col-md-12" style="margin-top: 20px;padding-left: 0px;margin-left: 0px">
-					<button id="save" disabled class="btn btn-primary">Simpan</button>&nbsp;<button class="btn btn-outline-warning" id="return">Kembali</button>
+					<div class="col-12 col-md-12" style="margin-top: 20px;padding-left: 0px;margin-left: 0px">
+						<div class="container">
+								<a id="save" disabled class="btn btn-primary" style="color: white">Simpan</a>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -44,8 +47,8 @@
 
 
 <script type="text/javascript">
-	$('#namaP').on('click change', function(event) {
-		event.preventDefault();
+	$('#tanggal').on('click change', function(event) {
+		
 		console.log($(this).val());
 		if ($(this).val()=='none') {
 			$('#save').prop('disabled', true);
@@ -55,46 +58,30 @@
 		}
 	});
 
-	$('#gantiFoto').click(function(event) {
+	$('#save').click(function(event) {
 		event.preventDefault();
-		$('#fotoDiv').toggle('fast');
+		$('#form').submit();
 	});
-
-	$('#foto').on('change',function(){
-    	var fileName = $(this).val();
-        $(this).next('.custom-file-label').html(fileName);
-    })
-
-    $('#logo').on('change',function(){
-    	var fileName = $(this).val();
-        $(this).next('.custom-file-label').html(fileName);
-    })
 
 	$('#form').submit(function(event) {
 		event.preventDefault(); 
 		$.ajax({
-			url: '<?php echo base_url('admin/prosespilihPengacara') ?>',
+			url: '<?php echo base_url('admin/simpanTanggalLahir') ?>',
 			type: 'POST',
-			data:new FormData(this),
-            processData:false,
-            contentType:false,
-            cache:false,
-            async:false,
+			data:{id: <?php echo $id ?>, tanggal: $('#tanggal').val()},
             error: function(data){
             	Swal.fire('Kesalahan!!', 'Gagal menghubungkan ke server !!', 'error')
             },
             success: function(data){
             	if (data==1) {
-            	Swal.fire('Berhasil !!', 'Perubahan berhasil disimpan. Status berubah menjadi "Kasus Berjalan" !!', 'success')
-            	var delay = 1500; 
-				setTimeout(function(){ 
+	            	Swal.fire('Berhasil !!', 'Perubahan berhasil disimpan !!', 'success')
+					$('#modalTG').modal('hide');
 					$('#loading').show();
 					$('#contentPage').addClass('lodtime');
-					$('#contentPage').load('<?php echo base_url('admin/daftarMasalah?tipe=1') ?>', function(){
+	            	$('#contentPage').load('<?php echo base_url('admin/kelolahKasus?id='); echo $id ?>', function(){
 						$('#loading').hide();
 						$('#contentPage').removeClass('lodtime');
-						$('#modalKelolah').modal('hide');
-					})}, delay);
+					});
             	}
             	else
             		Swal.fire('Kesalahan!!', 'Gagal upload !!', 'error')
@@ -106,7 +93,7 @@
 		event.preventDefault();
 		$('#loading').show();
 		$('#contentModal').addClass('lodtime');
-		$('#contentModal').load('<?php echo base_url('admin/select_kelolahMasalah?id='); echo $id; ?>', function(){
+		$('#contentModal').load('<?php echo base_url('admin/select_kelolahMasalahBerjalan?id='); echo $id; ?>', function(){
 			$('#loading').hide();
 			$('#contentModal').removeClass('lodtime');
 		});

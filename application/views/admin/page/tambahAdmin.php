@@ -95,7 +95,7 @@
 		event.preventDefault(); 
 		if (go==true) {
 			$.ajax({
-				url: '<?php echo base_url('admin/prosestambahAdminDirektur') ?>',
+				url: '<?php echo base_url('admin/prosestambahAdminDirekturPengacara') ?>',
 				type: 'POST',
 				data:new FormData(this),
 	            processData:false,
@@ -107,7 +107,7 @@
 	            },
 	            success: function(data){
 	            	if (data==1) {
-	            	Swal.fire('Berhasil !!', 'Akun Direktur berhasil ditambahkan !!', 'success')
+	            	Swal.fire('Berhasil !!', 'Akun Pengacara berhasil ditambahkan !!', 'success')
 	            	var delay = 1500; 
 					setTimeout(function(){ 
 						$('#loading').show();

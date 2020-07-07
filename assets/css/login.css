@@ -79,6 +79,10 @@
 		background: #3897f0;
 	}	
 
+	button.input-box.done{
+		background: #5DCF42; 
+	}
+
 	input{
 		background: transparent;
 		font-size: 15px;

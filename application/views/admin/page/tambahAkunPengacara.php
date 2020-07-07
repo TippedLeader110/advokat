@@ -2,7 +2,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-12 col-md-12">
-				<h5>Tambah Direktur baru</h5>
+				<h5>Tambah Akun Pengacara baru</h5>
 				<hr>
 			</div>
 		</div>
@@ -13,7 +13,7 @@
 					<div class="col-6 col-md-6">
 						<div class="form-group">
 							<input type="text" hidden name="id" value="<?php echo $this->session->userdata('panitia-id'); ?>">
-							<label class="form-control-label" for="namaP">Nama Direktur</label>
+							<label class="form-control-label" for="namaP">Nama Pengacara</label>
 							<input type="text" class="form-control" id="namaP" name="nama">
 								<div class="invalid-feedback">Tolong isi nama Pengacara</div>
 						</div>
@@ -96,7 +96,7 @@
 		event.preventDefault(); 
 		if (go==true) {
 			$.ajax({
-				url: '<?php echo base_url('admin/prosestambahAdminDirektur') ?>',
+				url: '<?php echo base_url('admin/prosestambahAdminDirekturPengacara') ?>',
 				type: 'POST',
 				data:new FormData(this),
 	            processData:false,
@@ -108,7 +108,7 @@
 	            },
 	            success: function(data){
 	            	if (data==1) {
-	            	Swal.fire('Berhasil !!', 'Akun Direktur berhasil ditambahkan !!', 'success')
+	            	Swal.fire('Berhasil !!', 'Akun Pengacara berhasil ditambahkan !!', 'success')
 	            	var delay = 1500; 
 					setTimeout(function(){ 
 						$('#loading').show();

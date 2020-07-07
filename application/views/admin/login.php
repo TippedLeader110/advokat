@@ -32,6 +32,7 @@
 		var username = $('#username').val();
 		var password = $('#password').val();
 		if (username.length!=0 && password.length!=0) {
+			$('#login').html("Memuat....");
 			$.ajax({
 				url: '<?php echo base_url('admin/prosesLogin') ?>',
 				type: 'post',
@@ -47,6 +48,9 @@
 						$('#password').removeClass('fail');
 						$('#username').addClass('done');
 						$('#password').addClass('done');
+						// $('#login').removeClass('fail');
+						$('#login').addClass('done');
+						$('#login').html("Berhasil....");
 						setTimeout(function() {
 							window.location.replace("<?php echo base_url("admin") ?>")
 						}, 900);
@@ -61,6 +65,7 @@
 						$('#password').removeClass('done');
 						$('#username').addClass('fail');
 						$('#password').addClass('fail');
+						$('#login').html("Login");
 					}
 				},
 				error: function(re){

@@ -66,7 +66,7 @@
 						</tr>
 						<tr>
 							<td>
-								No.HP :
+								No.HP
 							</td>
 							<td>
 								: &nbsp;
@@ -113,15 +113,20 @@
 					<h5 class="card-title">Status Masalah</h5>
 				    <p class="card-text">Mengganti status Masalah.</p>
 				    
-				 </div>
-				 <div class="card-footer">
-				 	<?php if ($value->status==1): ?>
-				    	<a href="#" class="btn btn-danger" id="select_statusPengacara">Tolak</a>
-				    <?php endif ?>
-				    <?php if ($value->status!=1): ?>
-				    	<a href="#" class="btn btn-success" id="select_statusPengacara">Aktifkan</a>
-				    <?php endif ?>
-				 </div>
+				</div>
+				<div class="card-footer">
+				    <a href="#" class="btn btn-danger" id="status_masalah">
+				    	<?php if ($value->status==1): ?>
+				    		Tolak Kasus
+				    	<?php endif ?>
+				    	<?php if ($value->status==2): ?>
+				    		Tutup Kasus
+				    	<?php endif ?>
+				    	<?php if ($value->status==0): ?>
+				    		Aktifkan
+				    	<?php endif ?>
+				    </a>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -167,7 +172,7 @@
 			  		$('#contentPage').load('<?php echo base_url('Admin/')?>daftarPengacara',function() {
 			            $('#loading').hide();
 			            $('#contentPage').removeClass('lodtime');
-			            $('.modal-backdrop').remove();
+			            $('#modalKelolah').modal('hide');
 			        }); 
         		}
         		else{
@@ -216,7 +221,7 @@
 						  		$('#contentPage').load('<?php echo base_url('Admin/')?>daftarPengacara',function() {
 						            $('#loading').hide();
 						            $('#contentPage').removeClass('lodtime');
-						            $('.modal-backdrop').remove();
+						            $('#modalKelolah').modal('hide');
 						        }); 
 						    });
 						}
