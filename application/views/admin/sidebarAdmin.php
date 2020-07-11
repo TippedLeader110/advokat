@@ -35,7 +35,7 @@
                         <a href="#" id="daftarPengacara">Daftar Pengacara</a>
                     </li>
                     <li>
-                        <a href="#" id="kelolahPengacara">Kelolah Pengacara</a>
+                        <a href="#" id="kelolahPengacara">Tambah Pengacara</a>
                     </li>
                     <!-- <li>
                 		<a href="#" id="katPage">Kategori</a>

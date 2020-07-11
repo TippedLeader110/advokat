@@ -22,7 +22,7 @@
 				<div class="card-body">
 					<h5 class="card-title">Tambah Akun Pengacara</h5>
 				    <p class="card-text">Untuk menambah akun pengacara dapat dilakukan di halaman kelolah pengacara.</p>
-				    <a href="#" class="btn btn-success" id="redirectKelolahPengacara"><i class="fas fa-plus"></i>&nbsp;Kelolah Pengacara</a>
+				    <a href="#" class="btn btn-success" id="redirectKelolahPengacara"><i class="fas fa-plus"></i>&nbsp;Tambah Pengacara</a>
 				 </div>
 			</div>
 		</div>
@@ -129,7 +129,7 @@
 
 	$('#redirectKelolahPengacara').click(function(event) {
         event.preventDefault();
-        loadPage('kelolahPengacara');
+        loadPage('tambahPengacara');
     });
 
     $('#tambahAdm').click(function(event) {

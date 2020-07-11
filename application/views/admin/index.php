@@ -52,7 +52,7 @@
 
     $('#kelolahPengacara').click(function(event) {
         event.preventDefault();
-        LoadPageIndex('kelolahPengacara');
+        LoadPageIndex('tambahPengacara');
     });
 
     $('#laporanSingkat').click(function(event) {

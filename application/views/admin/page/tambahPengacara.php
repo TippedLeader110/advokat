@@ -64,7 +64,7 @@
 					</div>
 				</div>
 				<div class="col-12 col-md-12" style="margin-top: 20px;padding-left: 0px;margin-left: 0px">
-					<button class="btn btn-outline-primary">Tambah</button>&nbsp;<button class="btn btn-outline-warning" id="return">Kembali</button>
+					<button class="btn btn-outline-primary">Tambah<!-- </button>&nbsp;<button class="btn btn-outline-warning" id="return">Kembali</button> -->
 				</div>
 			</div>
 		</div>
