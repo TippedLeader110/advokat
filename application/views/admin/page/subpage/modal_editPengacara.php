@@ -93,7 +93,8 @@
 					$('#contentPage').load('<?php echo base_url('admin/daftarPengacara') ?>', function(){
 						$('#loading').hide();
 						$('#contentPage').removeClass('lodtime');
-						$('#modalKelolah').modal('hide');
+						$('.modal-backdrop').remove();
+						$('body').removeClass('modal-open');
 					})}, delay);
             	}
             	else
@@ -106,7 +107,7 @@
 		event.preventDefault();
 		$('#loading').show();
 		$('#contentModal').addClass('lodtime');
-		$('#contentModal').load('<?php echo base_url('admin/modal_kelolahPengacara?id='); echo $value->id; ?>&status=<?php echo $value->status ?>', function(){
+		$('#contentModal').load('<?php echo base_url('admin/modal_kelolaPengacara?id='); echo $value->id; ?>&status=<?php echo $value->status ?>', function(){
 			$('#loading').hide();
 			$('#contentModal').removeClass('lodtime');
 		});

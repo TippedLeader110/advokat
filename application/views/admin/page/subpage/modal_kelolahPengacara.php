@@ -103,7 +103,7 @@
 								<?php endif ?>
 							</td>
 							<!-- <td>
-								<button class="btn btn-primary" onclick="kelolah(<?php echo $value->id_masalah ?>)">Kelolah</button>
+								<button class="btn btn-primary" onclick="kelolah(<?php echo $value->id_masalah ?>)">Kelola</button>
 							</td> -->
 						</tr>
 					<?php endforeach ?>
@@ -116,6 +116,7 @@
 <script type="text/javascript">
 
 	$(document).ready(function () {
+		$('#modalKelola').modal('hide');
 		$('#riwayatTable').DataTable();
 		$('.dataTables_length').addClass('bs-modal');
 	});
@@ -151,7 +152,7 @@
         	success: function(event){
         		if (event==1) {
         			Swal.fire('Berhasil', "Status pengacara berhasil diganti !!!", 'success');
-        			$('#modalKelolah').modal('hide');
+        			$('#modalKelola').modal('hide');
         			$('#loading').show();
 				    $('#contentPage').addClass('lodtime',function() {
 			            // $('#loading').hide();
@@ -160,7 +161,6 @@
 			  		$('#contentPage').load('<?php echo base_url('Admin/')?>daftarPengacara',function() {
 			            $('#loading').hide();
 			            $('#contentPage').removeClass('lodtime');
-			            
 			        }); 
         		}
         		else{
@@ -201,15 +201,12 @@
 						      timer: 2000,
   							  timerProgressBar: true
 						    }).then((result) => {
-						    	$('#loading').show();
-							    $('#contentPage').addClass('lodtime',function() {
-						            $('#loading').hide();
-						            $('#contentPage').removeClass('lodtime');
-						        });   
+						    	// $('#modalKelola').modal('hide');
+			        			$('#loading').show();
+							    $('#contentPage').addClass('lodtime');   
 						  		$('#contentPage').load('<?php echo base_url('Admin/')?>daftarPengacara',function() {
 						            $('#loading').hide();
 						            $('#contentPage').removeClass('lodtime');
-						            $('#modalKelolah').modal('hide');
 						        }); 
 						    });
 						}

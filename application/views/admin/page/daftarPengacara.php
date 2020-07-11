@@ -37,7 +37,7 @@
 								</td>
 								<td>
 									<input type="text" id="status<?php echo $value->id ?>" hidden value="<?php echo $value->status ?>">
-									<button class="btn btn-primary" id="kelolah" onclick="kelolah(<?php echo $value->id ?>, <?php echo $value->status ?>)">Kelolah</button>		
+									<button class="btn btn-primary" id="kelola" onclick="kelola(<?php echo $value->id ?>, <?php echo $value->status ?>)">Kelola</button>		
 								</td>
 							</tr>
 						<?php endforeach ?>
@@ -48,11 +48,11 @@
 	</div>
 </div>
 
-<div class="modal" tabindex="-1" role="dialog" id="modalKelolah">
+<div class="modal" tabindex="-1" role="dialog" id="modalKelola">
   	<div class="modal-dialog modal-lg" role="document">
     	<div class="modal-content">
       		<div class="modal-header">
-        		<h4 class="modal-title">Kelolah Pengacara</h4>
+        		<h4 class="modal-title">Kelola Pengacara</h4>
         		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
           			<span aria-hidden="true">&times;</span>
         		</button>
@@ -73,20 +73,20 @@
 		$('.dataTables_length').addClass('bs-modal');
 	});
 
-	function kelolah(id,status){
+	function kelola(id,status){
 		// console.log(stat);
-		$('.modal-body').load('<?php echo base_url('admin/modal_kelolahPengacara?id=') ?>' + id + '&status='+status);
-		$('#modalKelolah').modal('show');
+		$('.modal-body').load('<?php echo base_url('admin/modal_kelolaPengacara?id=') ?>' + id + '&status='+status);
+		$('#modalKelola').modal('show');
 	}
 
-	// $('#kelolah').click(function(event) {
+	// $('#kelola').click(function(event) {
 	// 	event.preventDefault();
 	// 	var id = $(this).val();
 	// 	var stri = '#status'+id;
 	// 	var stat = $(stri).val();
 	// 	// console.log(stat);
-	// 	$('.modal-body').load('<?php echo base_url('admin/modal_kelolahPengacara?id=') ?>' + id + '&status='+stat);
-	// 	$('#modalKelolah').modal('hide');
+	// 	$('.modal-body').load('<?php echo base_url('admin/modal_kelolaPengacara?id=') ?>' + id + '&status='+stat);
+	// 	$('#modalKelola').modal('hide');
 	// });
 
 </script>

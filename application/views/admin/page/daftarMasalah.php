@@ -48,13 +48,13 @@
 								<td><?php echo $value->nama; ?> (<?php echo $value->ktp; ?>)</td>
 								<td>
 									<?php if ($tipe==1): ?>
-										<button class="btn btn-primary" onclick="kelolah(<?php echo $value->id_masalah ?>)">Kelolah</button>
+										<button class="btn btn-primary" onclick="kelola(<?php echo $value->id_masalah ?>)">Kelola</button>
 									<?php endif ?>
 									<?php if ($tipe==2 || $tipe==4 || $tipe==3): ?>
-										<button class="btn btn-primary" onclick="kelolahBerjalan(<?php echo $value->id_masalah ?>)">Kelolah</button>
+										<button class="btn btn-primary" onclick="kelolaBerjalan(<?php echo $value->id_masalah ?>)">Kelola</button>
 									<?php endif ?>
 									<?php if ($tipe==22 || $tipe==44 || $tipe==33): ?>
-										<button class="btn btn-primary" onclick="kelolahBerjalanSaya(<?php echo $value->id_masalah ?>)">Kelolah</button>
+										<button class="btn btn-primary" onclick="kelolaBerjalanSaya(<?php echo $value->id_masalah ?>)">Kelola</button>
 									<?php endif ?>
 								</td>
 							</tr>
@@ -66,11 +66,11 @@
 	</div>
 </div>
 
-<div class="modal" tabindex="-1" role="dialog" id="modalKelolah">
+<div class="modal" tabindex="-1" role="dialog" id="modalKelola">
   	<div class="modal-dialog modal-lg" role="document">
     	<div class="modal-content">
       		<div class="modal-header">
-        		<h4 class="modal-title">Kelolah Kasus</h4>
+        		<h4 class="modal-title">Kelola Kasus</h4>
         		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
           			<span aria-hidden="true">&times;</span>
         		</button>
@@ -91,32 +91,34 @@
 		$('.dataTables_length').addClass('bs-modal');
 	});
 
-	function kelolah(id){
+	function kelola(id){
 		// console.log(stat);
-		$('.modal-body').load('<?php echo base_url('admin/modal_kelolahMasalah?id=') ?>' + id);
-		$('#modalKelolah').modal('show');
+		$('.modal-body').load('<?php echo base_url('admin/modal_kelolaMasalah?id=') ?>' + id);
+		$('#modalKelola').modal('show');
 	}
 
-	function kelolahBerjalan(id){
+	function kelolaBerjalan(id){
 		// console.log(stat);
-		$('.modal-body').load('<?php echo base_url('admin/modal_kelolahMasalahBerjalan?id=') ?>' + id);
-		$('#modalKelolah').modal('show');
+		$('.modal-body').load('<?php echo base_url('admin/modal_kelolaMasalahBerjalan?id=') ?>' + id);
+		$('#modalKelola').modal('show');
 	}
 
-	function kelolahBerjalanSaya(id){
+	function kelolaBerjalanSaya(id){
 		// console.log(stat);
-		$('.modal-body').load('<?php echo base_url('admin/modal_kelolahMasalahBerjalan?id=') ?>' + id);
-		$('#modalKelolah').modal('show');
+		$('.modal-body').load('<?php echo base_url('admin/modal_kelolaMasalahBerjalan?id=') ?>' + id);
+		$('#modalKelola').modal('show');
 	}
 
-	// $('#kelolah').click(function(event) {
+	// $('#kelola').click(function(event) {
 	// 	event.preventDefault();
 	// 	var id = $(this).val();
 	// 	var stri = '#status'+id;
 	// 	var stat = $(stri).val();
 	// 	// console.log(stat);
-	// 	$('.modal-body').load('<?php echo base_url('admin/modal_kelolahPengacara?id=') ?>' + id + '&status='+stat);
-	// 	$('#modalKelolah').modal('hide');
+	// 	$('.modal-body').load('<?php echo base_url('admin/modal_kelolaPengacara?id=') ?>' + id + '&status='+stat);
+	// 	$('#modalKelola').modal('hide');
+						// $('.modal-backdrop').remove();
+						$('body').removeClass('modal-open');
 	// });
 
 	$('#kembali').click(function(event) {

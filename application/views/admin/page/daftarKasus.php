@@ -44,7 +44,7 @@
 									<?php echo $value->tanggal_jumpa ?>
 								</td>
 								<td>
-									<button class="btn btn-primary" onclick="kelolah(<?php echo $value->id_masalah ?>)">Kelolah</button>
+									<button class="btn btn-primary" onclick="kelola(<?php echo $value->id_masalah ?>)">Kelola</button>
 								</td>
 							</tr>
 						<?php endforeach ?>
@@ -61,9 +61,9 @@
 		$('.dataTables_length').addClass('bs-modal');
 	});
 
-	function kelolah(id){
+	function kelola(id){
 		$('#loading').show();
-		$('#contentPage').load('<?php echo base_url('admin/kelolahKasus?id=') ?>' + id, function() {
+		$('#contentPage').load('<?php echo base_url('admin/kelolaKasus?id=') ?>' + id, function() {
 			$('#loading').hide();
 			$('#contentPage').removeClass('lodtime');
 		});

@@ -99,7 +99,9 @@
 	            success: function(data){
 	            	if (data==1) {
 	            	Swal.fire('Berhasil !!', 'Perubahan berhasil disimpan dan email terkirim. Status kasus berubah menjadi "Kasus Berjalan" !!', 'success')
-					$('#modalKelolah').modal('hide');
+					$('#modalKelola').modal('hide');
+					$('.modal-backdrop').remove();
+						$('body').removeClass('modal-open');
 	            	var delay = 1500; 
 					setTimeout(function(){ 
 						$('#loading').show();
@@ -127,7 +129,7 @@
 		event.preventDefault();
 		$('#loading').show();
 		$('#contentModal').addClass('lodtime');
-		$('#contentModal').load('<?php echo base_url('admin/modal_kelolahMasalahBerjalan?id='); echo $id; ?>', function(){
+		$('#contentModal').load('<?php echo base_url('admin/modal_kelolaMasalahBerjalan?id='); echo $id; ?>', function(){
 			$('#loading').hide();
 			$('#contentModal').removeClass('lodtime');
 		});

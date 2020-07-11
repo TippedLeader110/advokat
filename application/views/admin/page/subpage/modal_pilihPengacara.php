@@ -93,7 +93,9 @@
 					$('#contentPage').load('<?php echo base_url('admin/daftarMasalah?tipe=1') ?>', function(){
 						$('#loading').hide();
 						$('#contentPage').removeClass('lodtime');
-						$('#modalKelolah').modal('hide');
+						$('#modalKelola').modal('hide');
+						$('.modal-backdrop').remove();
+						$('body').removeClass('modal-open');
 					})}, delay);
             	}
             	else
@@ -106,7 +108,7 @@
 		event.preventDefault();
 		$('#loading').show();
 		$('#contentModal').addClass('lodtime');
-		$('#contentModal').load('<?php echo base_url('admin/modal_kelolahMasalah?id='); echo $id; ?>', function(){
+		$('#contentModal').load('<?php echo base_url('admin/modal_kelolaMasalah?id='); echo $id; ?>', function(){
 			$('#loading').hide();
 			$('#contentModal').removeClass('lodtime');
 		});

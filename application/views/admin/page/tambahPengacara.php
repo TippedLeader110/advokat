@@ -105,7 +105,7 @@
 				setTimeout(function(){ 
 					$('#loading').show();
 					$('#contentPage').addClass('lodtime');
-					$('#contentPage').load('<?php echo base_url('admin/kelolahPengacara') ?>', function(){
+					$('#contentPage').load('<?php echo base_url('admin/kelolaPengacara') ?>', function(){
 						$('#loading').hide();
 						$('#contentPage').removeClass('lodtime');
 					})}, delay);
@@ -120,7 +120,7 @@
 		event.preventDefault();
 		$('#loading').show();
 		$('#contentPage').addClass('lodtime');
-		$('#contentPage').load('<?php echo base_url('admin/kelolahPengacara') ?>', function(){
+		$('#contentPage').load('<?php echo base_url('admin/kelolaPengacara') ?>', function(){
 			$('#loading').hide();
 			$('#contentPage').removeClass('lodtime');
 		});

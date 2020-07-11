@@ -62,7 +62,7 @@
 							</td>
 							<td>
 								<input type="text" id="status<?php echo $value->id ?>" hidden value="<?php echo $value->status ?>">
-								<button class="btn btn-primary" id="kelolah" onclick="kelolah(<?php echo $value->id ?>, <?php echo $value->status ?>)">Kelolah</button>		
+								<button class="btn btn-primary" id="kelola" onclick="kelola(<?php echo $value->id ?>, <?php echo $value->status ?>)">Kelola</button>		
 							</td>
 						</tr>
 					<?php endforeach ?>
@@ -112,7 +112,9 @@
 			  		$('#contentPage').load('<?php echo base_url('Admin/')?>daftarPengacara',function() {
 			            $('#loading').hide();
 			            $('#contentPage').removeClass('lodtime');
-			            $('#modalKelolah').modal('hide');
+			            $('#modalKelola').modal('hide');
+						$('.modal-backdrop').remove();
+						$('body').removeClass('modal-open');
 			        }); 
         		}
         		else{
@@ -161,7 +163,9 @@
 						  		$('#contentPage').load('<?php echo base_url('Admin/')?>daftarPengacara',function() {
 						            $('#loading').hide();
 						            $('#contentPage').removeClass('lodtime');
-						            $('#modalKelolah').modal('hide');
+						            $('#modalKelola').modal('hide');
+									$('.modal-backdrop').remove();
+						$('body').removeClass('modal-open');
 						        }); 
 						    });
 						}

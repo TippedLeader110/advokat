@@ -50,7 +50,7 @@ class Admin extends CI_Controller {
 		$this->load->view('admin/page/daftarKasus', $data);		
 	}
 
-	public function kelolahKasus()
+	public function kelolaKasus()
 	{
 		$this->loginProtocol();
 		$id = $this->input->get('id');
@@ -63,7 +63,7 @@ class Admin extends CI_Controller {
 			$data['berkas'] = true;
 			$data['berkasArray'] = $this->Admin_model->getDBSearch('berkas', 'id_masalah', $id);	
 		}
-		$this->load->view('admin/page/kelolahKasus', $data);			
+		$this->load->view('admin/page/kelolaKasus', $data);			
 	}
 
 	public function hapusDokumen()
@@ -195,7 +195,13 @@ class Admin extends CI_Controller {
 	public function laporanSingkat()
 	{
 		$this->loginProtocol();
-		$this->load->view('admin/page/laporanSingkat');
+		$data['total_kasus'] = $this->db->get('masalah')->num_rows();
+		$data['kasus_baru'] = $this->db->where('status', 1)->get('masalah')->num_rows();
+		$data['kasus_berjalan'] = $this->db->where('status', 2)->get('masalah')->num_rows();
+		$data['kasus_selesai'] = $this->db->where('status', 3)->get('masalah')->num_rows();
+		$data['kasus_ditolak'] = $this->db->where('status', 0)->get('masalah')->num_rows();
+		$data['kasus_ditutup'] = $this->db->where('status', 4)->get('masalah')->num_rows();
+		$this->load->view('admin/page/laporanSingkat', $data);
 	}
 
 	public function tambahPengacara()
@@ -204,13 +210,13 @@ class Admin extends CI_Controller {
 		$this->load->view('admin/page/tambahPengacara');	
 	}
 
-	public function kelolahPengacara()
+	public function kelolaPengacara()
 	{
 		$this->loginProtocol();
-		$this->load->view('admin/page/kelolahPengacara');	
+		$this->load->view('admin/page/kelolaPengacara');	
 	}
 
-	public function modal_kelolahPengacara()
+	public function modal_kelolaPengacara()
 	{
 		$this->loginProtocol();
 		$id = $this->input->get('id');
@@ -219,19 +225,19 @@ class Admin extends CI_Controller {
 		$data['status'] = $status;
 		$data['dataP'] = $this->Admin_model->getDBSearch('a_users','id',$id);
 		$data['masalah'] = $this->Admin_model->getDBSearch('masalah', 'id_p', $id);
-		$this->load->view('admin/page/subpage/modal_kelolahPengacara', $data);
+		$this->load->view('admin/page/subpage/modal_kelolaPengacara', $data);
 	}
 
-	public function modal_kelolahMasalah()
+	public function modal_kelolaMasalah()
 	{
 		$this->loginProtocol();
 		$id = $this->input->get('id');
 		$data['id'] = $id;
 		$data['dataMasalah'] = $this->Admin_model->getDBSearch('masalah','id_masalah',$id);
-		$this->load->view('admin/page/subpage/modal_kelolahMasalah', $data);
+		$this->load->view('admin/page/subpage/modal_kelolaMasalah', $data);
 	}
 
-	public function modal_kelolahMasalahBerjalan()
+	public function modal_kelolaMasalahBerjalan()
 	{
 		$this->loginProtocol();
 		$id = $this->input->get('id');
@@ -245,7 +251,7 @@ class Admin extends CI_Controller {
 		else{
 			$data['dataMasalah'] = $this->Admin_model->getMasalahSayaID($id);
 		}
-		$this->load->view('admin/page/subpage/modal_kelolahMasalahBerjalan', $data);
+		$this->load->view('admin/page/subpage/modal_kelolaMasalahBerjalan', $data);
 	}
 
 	public function modal_hapusPengacara()
@@ -312,7 +318,7 @@ class Admin extends CI_Controller {
 		$this->load->view('admin/page/pilihMasalahSaya');
 	}
 
-	public function kelolahTanggal()
+	public function kelolaTanggal()
 	{
 		$data['id'] = $this->input->get('id');
 		// echo $data['id'];
@@ -497,12 +503,12 @@ class Admin extends CI_Controller {
 		$this->load->view('admin/page/logUser', $data);
 	}
 
-	public function kelolahAkun()
+	public function kelolaAkun()
 	{
 		$this->loginProtocol();
 		$data['admin'] = $this->Admin_model->getDBSearch('a_users', 'level', '1');
 		$data['pengacara'] = $this->Admin_model->getDBSearch('a_users', 'level', '2');
-		$this->load->view('admin/page/kelolahAkun', $data);	
+		$this->load->view('admin/page/kelolaAkun', $data);	
 	}
 
 	public function tambahAdmin()

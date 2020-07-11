@@ -52,7 +52,7 @@
                      <a href="#" id="daftarKasusSaya">Kasus Saya</a>
                     </li>
                 	<li>
-                		<a href="#" id="kelolahKasusPeng">Kelolah Kasus</a>
+                		<a href="#" id="kelolaKasusPeng">Kelola Kasus</a>
                 	</li>
                 </ul>
             </li>

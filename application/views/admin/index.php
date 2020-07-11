@@ -50,7 +50,7 @@
 
 	LoadPageIndex('laporanSingkat');
 
-    $('#kelolahPengacara').click(function(event) {
+    $('#kelolaPengacara').click(function(event) {
         event.preventDefault();
         LoadPageIndex('tambahPengacara');
     });
@@ -71,12 +71,12 @@
     });
     $('#akunPage').click(function(event) {
         event.preventDefault();
-        LoadPageIndex('kelolahAkun');
+        LoadPageIndex('kelolaAkun');
     });
 
-    $('#kelolahKasusADM').click(function(event) {
+    $('#kelolaKasusADM').click(function(event) {
         event.preventDefault();
-        LoadPageIndex('kelolahKasusADM');
+        LoadPageIndex('kelolaKasusADM');
     });
 
     $('#daftarKasusADM').click(function(event) {

@@ -66,7 +66,7 @@
 					$('#modalTG').modal('hide');
 					$('#loading').show();
 					$('#contentPage').addClass('lodtime');
-	            	$('#contentPage').load('<?php echo base_url('admin/kelolahKasus?id='); echo $id ?>', function(){
+	            	$('#contentPage').load('<?php echo base_url('admin/kelolaKasus?id='); echo $id ?>', function(){
 						$('#loading').hide();
 						$('#contentPage').removeClass('lodtime');
 					});
@@ -81,7 +81,7 @@
 		event.preventDefault();
 		$('#loading').show();
 		$('#contentModal').addClass('lodtime');
-		$('#contentModal').load('<?php echo base_url('admin/modal_kelolahMasalahBerjalan?id='); echo $id; ?>', function(){
+		$('#contentModal').load('<?php echo base_url('admin/modal_kelolaMasalahBerjalan?id='); echo $id; ?>', function(){
 			$('#loading').hide();
 			$('#contentModal').removeClass('lodtime');
 		});

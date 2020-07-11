@@ -37,7 +37,7 @@
 								</td>
 								<td>
 									<input type="text" id="status<?php echo $value->id ?>" hidden value="<?php echo $value->status ?>">
-									<button class="btn btn-success" value="<?php echo $value->id ?>" id="kelolah">Riwayat</button>		
+									<button class="btn btn-success" value="<?php echo $value->id ?>" id="kelola">Riwayat</button>		
 								</td>
 							</tr>
 						<?php endforeach ?>
@@ -48,7 +48,7 @@
 	</div>
 </div>
 
-<div class="modal" tabindex="-1" role="dialog" id="modalKelolah">
+<div class="modal" tabindex="-1" role="dialog" id="modalKelola">
   	<div class="modal-dialog modal-lg" role="document">
     	<div class="modal-content">
       		<div class="modal-header">
@@ -73,18 +73,22 @@
 		$('.dataTables_length').addClass('bs-modal');
 	});
 
-	function kelolah(id,status){
+	function kelola(id,status){
 		// console.log(stat);
-		$('.modal-body').load('<?php echo base_url('admin/modal_kelolahPengacara?id=') ?>' + id + '&status='+status);
-		$('#modalKelolah').modal('hide');
+		$('.modal-body').load('<?php echo base_url('admin/modal_kelolaPengacara?id=') ?>' + id + '&status='+status);
+		$('#modalKelola').modal('hide');
+		$('.modal-backdrop').remove();
+						$('body').removeClass('modal-open');
 	}
 
-	$('#kelolah').click(function(event) {
+	$('#kelola').click(function(event) {
 		event.preventDefault();
 		var id = $(this).val();
 		// console.log(stat);
 		$('.modal-body').load('<?php echo base_url('admin/modal_riwayatTugas?id=') ?>' + id);
-		$('#modalKelolah').modal('hide');
+		$('#modalKelola').modal('hide');
+		$('.modal-backdrop').remove();
+						$('body').removeClass('modal-open');
 	});
 
 </script>

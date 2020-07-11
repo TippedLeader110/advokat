@@ -16,7 +16,7 @@
 		  	<div class="card-body">
 		  		<div>
 		    		<h1 class="card-title text-center">
-						
+						<?php echo $total_kasus ?>
 		    		</h1>
 	    		</div>
 	  		</div>
@@ -40,7 +40,7 @@
 	  		<div class="card-body">
 	  			<div>
 	    			<h1 class="card-title text-center">
-						
+						<?php echo $kasus_baru ?>
 	    			</h1>
 	    		</div>
 	  		</div>
@@ -52,7 +52,7 @@
 	  		<div class="card-body">
 	  			<div>
 	    			<h1 class="card-title text-center">
-						
+						<?php echo $kasus_berjalan ?>
 	    			</h1>
 	    		</div>
 	  		</div>
@@ -64,7 +64,7 @@
 	  		<div class="card-body">
 	  			<div>
 	    			<h1 class="card-title text-center">
-						
+						<?php echo $kasus_selesai ?>
 	    			</h1>
 	    		</div>
 	  		</div>
@@ -88,7 +88,7 @@
 	  		<div class="card-body">
 	  			<div>
 	    			<h1 class="card-title text-center">
-						
+						<?php echo $kasus_ditolak ?>
 	    			</h1>
 	    		</div>
 	  		</div>
@@ -101,7 +101,7 @@
 	  		<div class="card-body">
 	  			<div>
 	    			<h1 class="card-title text-center">
-						
+						<?php echo $kasus_ditutup ?>
 	    			</h1>
 	    		</div>
 	  		</div>
