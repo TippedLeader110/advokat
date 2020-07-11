@@ -5,7 +5,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Home_model extends CI_Model {
 
 	public function kirim_aduan($arr){
-		if ($this->db->insert('pemohon',$arr)) {
+		if ($this->db->insert('masalah',$arr)) {
 			return TRUE;
 		}
 		else{

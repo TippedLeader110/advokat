@@ -29,6 +29,17 @@
 						</tr>
 						<tr>
 							<td>
+								Tanggal Jumpa
+							</td>
+							<td>
+								: &nbsp;
+							</td>
+							<td>
+								<?php echo $value->tanggal_jumpa ?>	&nbsp;<a href="#" id="tgTanggalJumpa" style="color: blue">[ganti]</a>
+							</td>
+						</tr>
+						<tr>
+							<td>
 								KTP
 							</td>
 							<td>
@@ -274,6 +285,12 @@
 		$('.modal-body').load('<?php echo base_url('admin/modal_tambahDokumen?id='); echo $value->id_masalah; ?>');
 		$('#modalTG').modal('show');
 	});	
+
+	$('#tgTanggalJumpa').click(function(event) {
+    	event.preventDefault();
+    	$('.modal-body').load('admin/editTanggal?id=<?php echo $value->id_masalah ?>');
+    	$('#modalTG').modal('show');
+    });	
 
 	$('#tgPekerjaan').click(function(event) {
 		event.preventDefault();

@@ -319,13 +319,26 @@ class Admin extends CI_Controller {
 		$this->load->view('admin/page/subpage/modal_pilihTanggal', $data);
 	}
 
+	public function editTanggal()
+	{
+		$data['id'] = $this->input->get('id');
+		// echo $data['id'];
+		$this->load->view('admin/page/subpage/modal_editTanggal', $data);
+	}
+
 	public function simpanTanggal()
 	{
 		$tanggal = $this->input->post('tanggal');
 		$id = $this->input->post('id');
 		$dataBaru = array('tanggal_jumpa' => $tanggal);
 		if ($this->Admin_model->editKasus($dataBaru, $id)==TRUE) {
-			echo "1";
+			$id_p = $this->db->where('id_masalah', $id)->get('masalah')->row()->id_p;
+			if ($this->Admin_model->tanggalSend($id_p, $id)==TRUE) {
+				echo "1";
+			}
+			else{
+				echo "NotSEND";
+			}
 		}
 		else{
 			echo "0";

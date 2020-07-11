@@ -35,7 +35,7 @@
 				<div class="row">
 				<div class="col-12 col-md-12" style="margin-top: 20px;padding-left: 0px;margin-left: 0px">
 					<div class="container">
-						<button id="save" disabled class="btn btn-primary">Simpan</button>&nbsp;<button class="btn btn-outline-warning" id="return">Kembali</button>
+						<button id="save" disabled class="btn btn-primary">Simpan</button>
 					</div>
 				</div>
 			</div>
@@ -99,15 +99,13 @@
 	            success: function(data){
 	            	if (data==1) {
 	            	Swal.fire('Berhasil !!', 'Perubahan berhasil disimpan dan email terkirim. Status kasus berubah menjadi "Kasus Berjalan" !!', 'success')
-					$('#modalKelolah').modal('hide');
-	            	var delay = 1500; 
-					setTimeout(function(){ 
-						$('#loading').show();
-						$('#contentPage').addClass('lodtime');
-						$('#contentPage').load('<?php echo base_url('admin/daftarMasalah?tipe=22') ?>', function(){
-							$('#loading').hide();
-							$('#contentPage').removeClass('lodtime');
-						})}, delay);
+					$('#modalTG').modal('hide');
+					$('#loading').show();
+					$('#contentPage').addClass('lodtime');
+	            	$('#contentPage').load('<?php echo base_url('admin/kelolahKasus?id='); echo $id ?>', function(){
+						$('#loading').hide();
+						$('#contentPage').removeClass('lodtime');
+					});
 	            	}
 	            	else if (data=='NotSEND') {
 	            		Swal.fire('Kesalahan!!', 'Auto email tidak terkirim!!', 'error')

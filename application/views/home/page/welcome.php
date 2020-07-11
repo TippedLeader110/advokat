@@ -120,7 +120,7 @@
 		event.preventDefault();
 		Swal.fire({
 		title: 'Apakah anda yakin data sudah benar?',
-		text: "Pengiriman tidak dapat diundurkan!",
+		text: "Pengiriman tidak dapat diundurkan!. Mohon pastikan data sudah benar karena balasan kasus akan di kirim melalui email",
 		icon: 'warning',
 		showCancelButton: true,
 		confirmButtonColor: '#3085d6',
@@ -142,9 +142,9 @@
 							console.log(er);
 							Swal.fire({
 						      title : 'Terkirim !',
-						      text : 'Aduan anda telah berhasil direkam!!.',
+						      text : 'Aduan kasus anda telah berhasil direkam!!.',
 						      icon : 'success',
-						      timer: 2000,
+						      timer: 4000,
   							  timerProgressBar: true
 						    }).then((result) => {
 						    	location.reload(true)
