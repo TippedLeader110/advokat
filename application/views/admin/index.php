@@ -93,5 +93,10 @@
         event.preventDefault();
         LoadPageIndex('editPassword'); 
     });
+
+    $('#riwayatTugas').click(function(event) {
+        event.preventDefault();
+        LoadPageIndex('daftarMasalah?tipe=all'); 
+    });
 </script>
 </html>

@@ -362,6 +362,7 @@ class Admin extends CI_Controller {
 		$this->loginProtocol();
 		$tipe = $this->input->get('tipe');
 		// $data['masalah'] = $this->Admin_model->getDB('masalah');
+		$def = 'admin/page/daftarMasalah';
 		if ($tipe==4) {
 			$data['masalah'] = $this->Admin_model->getMasalah34(1);	
 		}
@@ -374,11 +375,16 @@ class Admin extends CI_Controller {
 		elseif ($tipe==33) {
 			$data['masalah'] = $this->Admin_model->getMasalah34(2);	
 		}
+		elseif ($tipe=='all')
+		{
+			$def = 'admin/page/daftarKasus';
+			$data['masalah'] = $this->Admin_model->getDBSearch('masalah','id_p',$this->session->userdata('id_u'));		
+		}
 		else{
 			$data['masalah'] = $this->Admin_model->getDBSearch('masalah','status', $tipe);
 		}
 		$data['tipe'] = $tipe;
-		$this->load->view('admin/page/daftarMasalah', $data);		
+		$this->load->view($def, $data);		
 	}
 
 	public function daftarPengacara()
