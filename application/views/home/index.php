@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Notaris</title>
+	<title>Homepage Advokat</title>
 	<?php $this->load->view('template/header') ?>
 </head>
 <body>

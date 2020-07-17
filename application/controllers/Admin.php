@@ -192,6 +192,12 @@ class Admin extends CI_Controller {
 		}
 	}
 
+	public function editPassword()
+	{
+		$this->loginProtocol();
+		$this->load->view('admin/page/editPassword');	
+	}
+
 	public function laporanSingkat()
 	{
 		$this->loginProtocol();
@@ -462,6 +468,7 @@ class Admin extends CI_Controller {
 		$nohp = $this->input->post('nohp');
 		$username = $this->input->post('username');
 		$password = $this->input->post('password');
+		$password = password_hash($password, PASSWORD_DEFAULT);
 
 		$config['upload_path']="./public/pengacara/foto/"; //path folder file upload
         $config['allowed_types']='*'; //type file yang boleh di upload
@@ -533,6 +540,21 @@ class Admin extends CI_Controller {
 		}
 		else{
 			echo "1";
+		}
+	}
+
+	public function proseseditPassword()
+	{
+		$this->loginProtocol();
+		$id_u = $this->input->post('id_u');
+		$passBaru = $this->input->post('passBaru');
+		$passBaru = password_hash($passBaru, PASSWORD_DEFAULT);
+		$this->db->where('id', $id_u);
+		if ($this->db->set('password', $passBaru)->update('a_users')) {
+			echo "1";
+		}
+		else{
+			echo "0";
 		}
 	}
 

@@ -91,7 +91,7 @@
 									<td>
 										<?php echo $DIRvalue->email ?>
 									</td>
-									<td><button class="btn btn-warning" value="<?php echo $DIRvalue->id ?>" id="gantiPass">Ganti Password</button></td>
+									<td><button class="btn btn-warning" onclick="gantiPass(<?php echo $DIRvalue->id ?>)" >Ganti Password</button></td>
 								</tr>
 							<?php endforeach ?>
 						</tbody>
@@ -136,4 +136,14 @@
         event.preventDefault();
         loadPage('tambahAdmin');
     });
+
+    $('#gantiPass').click(function(event) {
+    	event.preventDefault();
+    	loadPage('editPassword?id='+$(this).val());
+    });
+
+    function gantiPass(id)
+    {
+    	loadPage('editPassword?id='+id);
+    }
 </script>

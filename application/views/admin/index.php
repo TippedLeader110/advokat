@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Notaris</title>
+	<title>Dashboard Admin-Pengacara</title>
 	<?php $this->load->view('template/headerAdmin') ?>
 </head>
 <body>
@@ -88,6 +88,10 @@
         event.preventDefault();
         LoadPageIndex('pilihMasalahSaya');
     });
-       
+    
+    $('#passForgot').click(function(event) {
+        event.preventDefault();
+        LoadPageIndex('editPassword'); 
+    });
 </script>
 </html>

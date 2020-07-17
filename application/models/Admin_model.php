@@ -65,10 +65,10 @@ class Admin_model extends CI_Model {
 								<td>Nama</td><td>:</td><td>'.$rowP->nama.' </td>
 							</tr>
 							<tr>
-								<td>Nama</td><td>:</td><td>'.$rowP->email.' </td>
+								<td>Email</td><td>:</td><td>'.$rowP->email.' </td>
 							</tr>
 							<tr>
-								<td>Nama</td><td>:</td><td>'.$rowP->nohp.' </td>
+								<td>No.HP</td><td>:</td><td>'.$rowP->nohp.' </td>
 							</tr>
 						</table>
 						<p>
