@@ -11,8 +11,8 @@
 		<div class="col-12 col-md-6">
 			<div class="card text-center" style="margin-bottom: 10px">
 				<div class="card-body">
-					<h5 class="card-title">Tambah Akun Admin/Direktur</h5>
-				    <p class="card-text">Menambah akun Admin/Direktur baru untuk mengatur dan memonitor kerja sistem ini.</p>
+					<h5 class="card-title">Tambah Akun Admin</h5>
+				    <p class="card-text">Menambah akun Admin baru untuk mengatur dan memonitor kerja sistem ini.</p>
 				    <a href="#" class="btn btn-success" id="tambahAdm"><i class="fas fa-plus"></i>&nbsp;Tambah</a>
 				 </div>
 			</div>
