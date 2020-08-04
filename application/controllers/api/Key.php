@@ -54,6 +54,8 @@ class Key extends REST_Controller {
                 $response['name'] = $result->nama;
                 $response['email'] = $result->nama;
                 $response['level'] = $result->level;
+                $response['password'] = $result->password;
+                $response['username'] = $result->username;
                 $this->response($response, REST_Controller::HTTP_OK);    
             }
             else{
@@ -63,5 +65,27 @@ class Key extends REST_Controller {
         else{
             $this->response(['error'=>true], REST_Controller::HTTP_NOT_FOUND);
         }
+    }
+
+    public function kasus_post()
+    {
+        // Users from a data store e.g. database
+        if ($this->post('status')=='tutup') {
+            $this->db->where("(status=3 or status=4)");
+        }else if ($this->post('status')=='baru') {
+            $this->db->where("status", 1);
+        }
+        elseif ($this->post('status')=='berjalan') {
+            $this->db->where("status", 2);
+        }
+        if ($this->post('status')!="") {
+            $row = $this->db->get('masalah')->result();
+            $this->response($row, REST_Controller::HTTP_OK);
+        }
+        else{
+            $this->response(['error'=>true], REST_Controller::HTTP_NOT_FOUND);
+        }
+        
+        
     }
 }
