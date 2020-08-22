@@ -48,19 +48,43 @@ class Key extends REST_Controller {
         if ($cari->num_rows()!=0) {
             if (password_verify($password , $cari->row()->password)) {
                 $result = $this->db->where('id', $cari->row()->id)->get('a_users')->row();
+                //Generate kode_seminar
+                $huruf_random = substr(str_shuffle('ABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 4);
+                $tanggal_waktu = date('dmHis');
+                $date = date('Y-m-d');
+                $kode_token = $huruf_random."".$tanggal_waktu;
+                $kode_token = md5($kode_token);
+                $dataToken = array('token_key' => $kode_token, 'expired' => $date, 'id_users' => $result->id);
+                $this->db->insert('token_api',$dataToken);
                 // var_dump($result->id);
-                $response['error'] = false;
                 $response['uid'] = $result->id;
+                $response['error'] = false;
                 $response['name'] = $result->nama;
+                $response['token'] = $kode_token;
                 $response['email'] = $result->nama;
                 $response['level'] = $result->level;
-                $response['password'] = $result->password;
-                $response['username'] = $result->username;
                 $this->response($response, REST_Controller::HTTP_OK);    
             }
             else{
-                $this->response(['error'=>true], REST_Controller::HTTP_NOT_FOUND);
+                $this->response(['error'=>true], REST_Controller::HTTP_OK);
             }
+        }
+        else{
+            $this->response(['error'=>true], REST_Controller::HTTP_OK);
+        }
+    }
+
+    public function kasus_get()
+    {
+        // Users from a data store e.g. database
+        $res = $this->db->get('masalah')->result();
+        $resA = $this->db->where('level', 2)->get('a_users')->result();
+        $maxid = 0;
+        $row = $this->db->query("SELECT MAX(update_time) AS upd FROM masalah ")->row();
+        $max = $row->upd; 
+        $response = array('update_time' => $max, 'kasus' => $res, 'pengacara' => $resA);
+        if ($res) {
+            $this->response($response, REST_Controller::HTTP_OK);
         }
         else{
             $this->response(['error'=>true], REST_Controller::HTTP_NOT_FOUND);
@@ -71,21 +95,101 @@ class Key extends REST_Controller {
     {
         // Users from a data store e.g. database
         if ($this->post('status')=='tutup') {
-            $this->db->where("(status=3 or status=4)");
+            $this->db->where("(status=0 or status=4)");
         }else if ($this->post('status')=='baru') {
             $this->db->where("status", 1);
-        }
-        elseif ($this->post('status')=='berjalan') {
+        }else if ($this->post('status')=='selesai') {
+            $this->db->where("status", 3);
+        }else if ($this->post('status')=='berjalan') {
             $this->db->where("status", 2);
-        }
-        if ($this->post('status')!="") {
+        }if ($this->post('status')!="") {
             $row = $this->db->get('masalah')->result();
             $this->response($row, REST_Controller::HTTP_OK);
+        }else{
+            $this->response(['error'=>true], REST_Controller::HTTP_NOT_FOUND);
+        }
+    }
+
+    public function loginToken_post(){
+        $token = $this->post('token');
+        $row = $this->db->where('token_key',$token)->get('token_api')->num_rows();
+        if ($row!=0) {
+            $this->response(['error'=>false, 'status_token'=>true], REST_Controller::HTTP_OK);
+        }else{
+            $this->response(['error'=>true, 'status_token'=>false], REST_Controller::HTTP_OK);
+        }
+    }
+
+    public function pengacara_get(){
+        // $this->db->select()
+        $res = $this->db->get('pengacara')->result();
+        if ($res) {
+            $this->response($res, REST_Controller::HTTP_OK);
         }
         else{
             $this->response(['error'=>true], REST_Controller::HTTP_NOT_FOUND);
         }
-        
-        
+    }
+
+    public function gantiStatus_post(){
+        // $this->checkToken($this->post("token"));
+        if ($this->checkToken($this->post("token"))) {
+            $this->db->where('id_masalah', $this->post("id"));
+            $row = $this->db->get('masalah')->row();
+            if ($row->status==1) {
+                $this->db->set('status', 0);
+            }
+            elseif ($row->status==2) {
+                $this->db->set('status', 4);
+            }
+            elseif ($row->status==4) {
+                $this->db->set('status', 2);
+            }
+            else{
+                $this->db->set('status', 1);    
+            }
+            $this->db->where('id_masalah', $this->post("id"));
+            if ($this->db->update('masalah')) {
+                $this->response(['error'=>false], REST_Controller::HTTP_OK);
+            }
+            else{
+                $this->response(['error'=>'fail'], REST_Controller::HTTP_OK);   
+            }    
+        }
+        else{
+            $this->response(['error'=>true], REST_Controller::HTTP_OK);   
+        }
+        // $this->response(['error'=>true], REST_Controller::HTTP_OK);   
+    }
+
+    public function setPengacara_post(){
+        if ($this->checkToken($this->post("token"))) {
+            $row = $this->db->where('id_masalah', $this->post("id_masalah"))->get("masalah")->row();
+            if ($row->status==1) {
+                $this->db->set('status', 2);    
+            }
+            $this->db->set('id_p', $this->post("pengacara"));
+            $this->db->where('id_masalah', $this->post("id_masalah"));
+            if ($this->db->update('masalah')) {
+                $this->response(['error'=>false], REST_Controller::HTTP_OK);
+            }
+            else{
+                $this->response(['error'=>'fail'], REST_Controller::HTTP_OK);   
+            }   
+        }else{
+            $this->response(['error'=>true], REST_Controller::HTTP_OK);   
+        }
+    }
+
+    public function checkToken($token){
+        // echo "Token".$token."<br>";
+        if ($this->db->where("token_key", $token)->get("token_api")->num_rows()!=0) {
+            // echo "1";
+            return true;
+        }
+        else{
+            // echo "0";
+            return false;
+        }
     }
 }
