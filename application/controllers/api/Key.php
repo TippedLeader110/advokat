@@ -94,19 +94,25 @@ class Key extends REST_Controller {
     public function kasus_post()
     {
         // Users from a data store e.g. database
-        if ($this->post('status')=='tutup') {
-            $this->db->where("(status=0 or status=4)");
-        }else if ($this->post('status')=='baru') {
-            $this->db->where("status", 1);
-        }else if ($this->post('status')=='selesai') {
-            $this->db->where("status", 3);
-        }else if ($this->post('status')=='berjalan') {
-            $this->db->where("status", 2);
-        }if ($this->post('status')!="") {
-            $row = $this->db->get('masalah')->result();
-            $this->response($row, REST_Controller::HTTP_OK);
+        if ($this->checkToken($this->post("token"))) {
+            if ($this->post('level')!=1) {
+                $id_users = $this->db->where('token_key', $this->post("token"))->get('token_api')->row()->id_users;            
+                $this->db->where('id_p', $id_users);
+            }
+            $res = $this->db->get('masalah')->result();
+            $resA = $this->db->where('level', 2)->get('a_users')->result();
+            $maxid = 0;
+            $row = $this->db->query("SELECT MAX(update_time) AS upd FROM masalah ")->row();
+            $max = $row->upd; 
+            $response = array('update_time' => $max, 'kasus' => $res, 'pengacara' => $resA);
+            if ($res) {
+                $this->response($response, REST_Controller::HTTP_OK);
+            }
+            else{
+                $this->response(['error'=>'fail'], REST_Controller::HTTP_OK);   
+            }   
         }else{
-            $this->response(['error'=>true], REST_Controller::HTTP_NOT_FOUND);
+            $this->response(['error'=>true], REST_Controller::HTTP_OK);   
         }
     }
 
