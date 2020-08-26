@@ -36,6 +36,44 @@ class Key extends REST_Controller {
 
     }
 
+    function upload_post(){
+
+        if ($this->checkToken($this->post("token"))) {
+            if (!empty($_FILES)) {
+                $fileName = $_FILES['file']['name'];
+                $config['upload_path'] = './public/kasus/berkas';
+                $config['file_name'] = $fileName;
+                $config['allowed_types'] = '*';
+                $config['encrypt_name'] = TRUE;
+                $config['file_ext_tolower']=TRUE;
+                $this->load->library('upload', $config);
+
+                if (!$this->upload->do_upload("file")) {
+                    $status['error'] =$this->upload->display_errors('', '');
+                    $status['status'] = 2;
+                }else {
+                    $data = array('upload_data' => $this->upload->data()); //ambil file name yang diupload
+                    $Nberkas = $data['upload_data']['file_name'];
+                    $dataInsert = array('file' => $Nberkas,
+                                'nama_berkas' => $this->post('nama_file'),
+                                'id_masalah' => $this->post('id')
+                                );
+                    $this->db->insert("berkas", $dataInsert);
+                    $status['error']=false;
+                    $status['status'] = 1;
+                }
+            }else{
+                $status['error']=true;
+                $status['status'] = 3;
+            }
+        }
+        else{
+            $status['error']=true;
+            $status['status'] = 10;
+        }
+        echo json_encode($status);
+    }
+
     public function login_post()
     {
         // Users from a data store e.g. database
@@ -116,6 +154,47 @@ class Key extends REST_Controller {
         }
     }
 
+    public function editKasus_post()
+    {
+        if ($this->checkToken($this->post("token"))) {
+            $tanggal = $this->post('tanggal');
+            $tempat = $this->post('tempat');
+            $pekerjaan = $this->post('pekerjaan');
+            $id = $this->post('id');
+            $this->db->set('tanggal_lahir', $tanggal);
+            $this->db->set('tempat_lahir', $tempat);
+            $this->db->set('pekerjaan', $pekerjaan);
+            $this->db->where('id_masalah', $id);
+            if ($this->db->update('masalah')) {
+                $this->response(['error'=>false], REST_Controller::HTTP_OK);   
+            }
+            else{
+                $this->response(['error'=>'fail'], REST_Controller::HTTP_OK);   
+            }   
+        }else{
+            $this->response(['error'=>true], REST_Controller::HTTP_OK);   
+        }
+    }
+
+    public function gantiTanggal_post()
+    {
+        // Users from a data store e.g. database
+        if ($this->checkToken($this->post("token"))) {
+            $tanggal = $this->post('tanggal');
+            $id = $this->post('id');
+            $this->db->set('tanggal_jumpa', $tanggal);
+            $this->db->where('id_masalah', $id);
+            if ($this->db->update('masalah')) {
+                $this->response(['error'=>false], REST_Controller::HTTP_OK);   
+            }
+            else{
+                $this->response(['error'=>'fail'], REST_Controller::HTTP_OK);   
+            }   
+        }else{
+            $this->response(['error'=>true], REST_Controller::HTTP_OK);   
+        }
+    }
+
     public function loginToken_post(){
         $token = $this->post('token');
         $row = $this->db->where('token_key',$token)->get('token_api')->num_rows();
@@ -137,6 +216,53 @@ class Key extends REST_Controller {
         }
     }
 
+    public function kasusSelesai_post(){
+        // $this->checkToken($this->post("token"));
+        if ($this->checkToken($this->post("token"))) {
+            $this->db->set('status', 3);
+            $this->db->where('id_masalah', $this->post("id"));
+            if ($this->db->update('masalah')) {
+                $this->response(['error'=>false], REST_Controller::HTTP_OK);
+            }
+            else{
+                $this->response(['error'=>'fail'], REST_Controller::HTTP_OK);   
+            }    
+        }
+        else{
+            $this->response(['error'=>true], REST_Controller::HTTP_OK);   
+        }
+        // $this->response(['error'=>true], REST_Controller::HTTP_OK);   
+    }
+
+    public function getBerkas_post(){
+        // $this->checkToken($this->post("token"));
+        if ($this->checkToken($this->post("token"))) {
+            $this->db->where('id_masalah', $this->post('id'));
+            $result = $this->db->get('berkas')->result();
+            $this->response(['error'=>false, 'berkas' => $result], REST_Controller::HTTP_OK);   
+        }
+        else{
+            $this->response(['error'=>true], REST_Controller::HTTP_OK);   
+        }
+    }
+
+    public function hapusBerkas_post(){
+        // $this->checkToken($this->post("token"));
+        if ($this->checkToken($this->post("token"))) {
+            $this->db->where('id_berkas', $this->post('id'));
+            if ($this->db->delete('berkas')) {
+                $this->response(['error'=>false], REST_Controller::HTTP_OK);   
+            }
+            else{
+                $this->response(['error'=>"fail"], REST_Controller::HTTP_OK);   
+            }
+        }
+        else{
+            $this->response(['error'=>true], REST_Controller::HTTP_OK);   
+        }
+        // $this->response(['error'=>true], REST_Controller::HTTP_OK);   
+    }
+
     public function gantiStatus_post(){
         // $this->checkToken($this->post("token"));
         if ($this->checkToken($this->post("token"))) {
@@ -148,7 +274,7 @@ class Key extends REST_Controller {
             elseif ($row->status==2) {
                 $this->db->set('status', 4);
             }
-            elseif ($row->status==4) {
+            elseif ($row->status==4 || $row->status==3) {
                 $this->db->set('status', 2);
             }
             else{
